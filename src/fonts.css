@@ -1,0 +1,40 @@
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(./fonts/noto-sans-normal-400.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(./fonts/noto-sans-normal-600.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Noto Serif";
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(./fonts/noto-serif-italic-400.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Noto Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(./fonts/noto-serif-normal-400.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Noto Serif";
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(./fonts/noto-serif-normal-500.ttf) format("truetype");
+}

@@ -1,0 +1,47 @@
+{
+  "description": "Суреттер кіріктірілген image_gen құралымен жасалды. Портрет бастапқы мұқабаға сүйенеді; қалған суреттерде сол портрет референс ретінде қолданылды. Бұл көркемдік иллюстрациялар, тарихи фотосуреттер емес. Сайттағы мәтін сурет ішіне жазылмайды.",
+  "mode": "built-in image_gen",
+  "portrait": {
+    "output": "public/images/portrait.webp",
+    "reference": "materials/cover-reference.jpg",
+    "prompt": "Use case: identity-preserve. Asset type: portrait for Kazakh interactive historical book cover. Use supplied book photo ONLY as identity reference for Kanysh Satbayev: broad oval face, wavy dark hair swept back with side part, heavy straight eyebrows, calm eyes, broad nose, distinctive full lower face, clean shaven. Create a faithful dignified black-and-white engraved photographic-style portrait of this same man wearing 1940s dark suit and tie, shoulders and full head visible. Vertical 2:3 composition, head in upper two thirds, lower third fades into nearly black charcoal background for HTML title overlay. Beautiful fine silver-gelatin grain, archival print, soft cream highlights. Remove ALL book lettering, book edges, carpet, red band and objects. No text, no letters, no watermark. This will be master identity reference for subsequent historical illustrations."
+  },
+  "scenes": [
+    {
+      "id": "academy",
+      "output": "public/images/academy.webp",
+      "reference": "materials/illustrations/portrait.png",
+      "prompt": "Use case: historical-scene. Asset: wide 3:2 illustration for a Kazakh interactive literary book. Fine painterly archival illustration, graphite and muted olive, sepia, warm cream, copper highlights, evocative light, subtle paper grain, cinematic composition with spacious depth, historically plausible 1940s-1951 Soviet Kazakhstan clothing and objects. No modern objects, no text, no letters, no watermark. Kanysh Satbayev MUST have the SAME facial identity as supplied master portrait: broad face, wavy swept back dark hair, strong brows, clean shaven. Other people are anonymous illustrative figures, do not invent identifiable historical portraits. Almaty 1946, the exterior of Abai Opera and Ballet Theatre, elegant neoclassical pale facade and columns, people in 1940s suits gathering for a scientific inauguration, warm early summer light, distant foothills. Kanysh not in foreground. A quiet majestic establishing shot."
+    },
+    {
+      "id": "scholars",
+      "output": "public/images/scholars.webp",
+      "reference": "materials/illustrations/portrait.png",
+      "prompt": "Use case: historical-scene. Asset: wide 3:2 illustration for a Kazakh interactive literary book. Fine painterly archival illustration, graphite and muted olive, sepia, warm cream, copper highlights, evocative light, subtle paper grain, cinematic composition with spacious depth, historically plausible 1940s-1951 Soviet Kazakhstan clothing and objects. No modern objects, no text, no letters, no watermark. Kanysh Satbayev MUST have the SAME facial identity as supplied master portrait: broad face, wavy swept back dark hair, strong brows, clean shaven. Other people are anonymous illustrative figures, do not invent identifiable historical portraits. A scholarly office in 1940s Kazakhstan: Satbayev in three-quarter view at a large oak desk with open books, geological specimen, notebooks, a globe, sunlight through tall windows. Three anonymous fellow scholars seated in background sharing manuscripts. The mood is purposeful collaboration across sciences."
+    },
+    {
+      "id": "ceremony",
+      "output": "public/images/ceremony.webp",
+      "reference": "materials/illustrations/portrait.png",
+      "prompt": "Use case: historical-scene. Asset: wide 3:2 illustration for a Kazakh interactive literary book. Fine painterly archival illustration, graphite and muted olive, sepia, warm cream, copper highlights, evocative light, subtle paper grain, cinematic composition with spacious depth, historically plausible 1940s-1951 Soviet Kazakhstan clothing and objects. No modern objects, no text, no letters, no watermark. Kanysh Satbayev MUST have the SAME facial identity as supplied master portrait: broad face, wavy swept back dark hair, strong brows, clean shaven. Other people are anonymous illustrative figures, do not invent identifiable historical portraits. Satbayev from master reference, in a 1940s dark suit standing at a simple wooden podium on theatre stage, delivering address for Academy opening, anonymous dignified audience and two seated officials in soft focus, elegant curtains, warm theatre light. No flags, no lettering, no invented portraits. Frame him large on right with theatre depth at left."
+    },
+    {
+      "id": "evening",
+      "output": "public/images/evening.webp",
+      "reference": "materials/illustrations/portrait.png",
+      "prompt": "Use case: historical-scene. Asset: wide 3:2 illustration for a Kazakh interactive literary book. Fine painterly archival illustration, graphite and muted olive, sepia, warm cream, copper highlights, evocative light, subtle paper grain, cinematic composition with spacious depth, historically plausible 1940s-1951 Soviet Kazakhstan clothing and objects. No modern objects, no text, no letters, no watermark. Kanysh Satbayev MUST have the SAME facial identity as supplied master portrait: broad face, wavy swept back dark hair, strong brows, clean shaven. Other people are anonymous illustrative figures, do not invent identifiable historical portraits. 1951 modest Almaty apartment evening. Satbayev same reference, dark suit, seated calmly at laid dining table beside a packed vintage leather suitcase, a woman in modest 1950s clothing near window seen from behind, empty chairs and open doorway, desk lamp casts warm light against cool shadows, mood dignity and solitude."
+    },
+    {
+      "id": "train",
+      "output": "public/images/train.webp",
+      "reference": "materials/illustrations/portrait.png",
+      "prompt": "Use case: historical-scene. Asset: wide 3:2 illustration for a Kazakh interactive literary book. Fine painterly archival illustration, graphite and muted olive, sepia, warm cream, copper highlights, evocative light, subtle paper grain, cinematic composition with spacious depth, historically plausible 1940s-1951 Soviet Kazakhstan clothing and objects. No modern objects, no text, no letters, no watermark. Kanysh Satbayev MUST have the SAME facial identity as supplied master portrait: broad face, wavy swept back dark hair, strong brows, clean shaven. Other people are anonymous illustrative figures, do not invent identifiable historical portraits. Satbayev same reference, seen in profile through the open window of a dark olive 1951 Soviet passenger train, looking back toward distant snowy Alatau mountains, steam from locomotive beyond platform, evening light, vintage leather suitcase visible inside. Reflective departure, no readable markings."
+    },
+    {
+      "id": "support",
+      "output": "public/images/support.webp",
+      "reference": "materials/illustrations/portrait.png",
+      "prompt": "Use case: historical-scene. Asset: wide 3:2 illustration for a Kazakh interactive literary book. Fine painterly archival illustration, graphite and muted olive, sepia, warm cream, copper highlights, evocative light, subtle paper grain, cinematic composition with spacious depth, historically plausible 1940s-1951 Soviet Kazakhstan clothing and objects. No modern objects, no text, no letters, no watermark. Kanysh Satbayev MUST have the SAME facial identity as supplied master portrait: broad face, wavy swept back dark hair, strong brows, clean shaven. Other people are anonymous illustrative figures, do not invent identifiable historical portraits. 1950s railway platform in Kazan or Moscow, Satbayev same reference stepping down from vintage passenger carriage, greeted warmly with handshake by anonymous fellow academics in wool coats and hats, period luggage, steam, hopeful soft morning light. Focus on human solidarity, no fabricated signage or text."
+    }
+  ]
+}

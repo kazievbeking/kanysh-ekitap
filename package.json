@@ -1,0 +1,31 @@
+{
+  "name": "kanysh-interactive-book",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.5.0",
+    "jsdom": "^26.1.0",
+    "music-metadata": "^11.2.0",
+    "prettier": "^3.5.3",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^5.0.5"
+  }
+}

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.tools/
+.cache/
+materials/page-*.png
+test-results/
+*.local
+*.tsbuildinfo
+tmp/

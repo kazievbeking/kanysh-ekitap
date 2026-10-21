@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "status": "automatically-aligned",
+  "method": "Нақты MP3 файлдарындағы сөйлем шекаралары. Үзілістер бар жерде олардың орта тұсы алынды. Диктор мәтінінің орнына тану нәтижесі қолданылмайды.",
+  "review": "Шекаралар автоматты тану бойынша анықталған; тыңдап соңғы редакторлық салыстыру қажет.",
+  "segments": {
+    "academy-01": {
+      "file": "audio/chapter-1.mp3",
+      "start": 0,
+      "end": 48.92
+    },
+    "academy-02": {
+      "file": "audio/chapter-1.mp3",
+      "start": 48.92,
+      "end": 149.415
+    },
+    "academy-03": {
+      "file": "audio/chapter-1.mp3",
+      "start": 149.415,
+      "end": 163.27
+    },
+    "academy-04": {
+      "file": "audio/chapter-1.mp3",
+      "start": 163.27,
+      "end": 238.00163265306122
+    },
+    "fugitive-01": {
+      "file": "audio/chapter-2.mp3",
+      "start": 0,
+      "end": 50.79
+    },
+    "fugitive-02": {
+      "file": "audio/chapter-2.mp3",
+      "start": 50.79,
+      "end": 80.06
+    },
+    "fugitive-03": {
+      "file": "audio/chapter-2.mp3",
+      "start": 80.06,
+      "end": 175.6
+    },
+    "fugitive-04": {
+      "file": "audio/chapter-2.mp3",
+      "start": 175.6,
+      "end": 221.88
+    },
+    "fugitive-05": {
+      "file": "audio/chapter-2.mp3",
+      "start": 221.88,
+      "end": 269.5314285714286
+    }
+  }
+}

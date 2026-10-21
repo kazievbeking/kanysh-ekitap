@@ -1,0 +1,22 @@
+import { JSDOM, VirtualConsole } from 'jsdom';
+
+const base = process.argv[2] || 'http://127.0.0.1:5173/';
+const html = await (await fetch(base)).text();
+const script = html.match(/<script[^>]+src="([^"]+)/)?.[1];
+if (!script || script.includes('/src/')) throw new Error('Дайын жинақтың сценарийі табылмады');
+const response = await fetch(new URL(script, base));
+const code = await response.text();
+if (!response.ok || code.length < 10000) throw new Error('JavaScript жинағы бос');
+const errors = [];
+const console = new VirtualConsole();
+console.on('jsdomError', e => errors.push(e.message));
+const dom = new JSDOM(html, {url:base,runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:console});
+dom.window.scrollTo = () => {};
+dom.window.HTMLMediaElement.prototype.pause = function() {};
+dom.window.HTMLMediaElement.prototype.play = function() {return Promise.resolve();};
+dom.window.eval(code);
+await new Promise(resolve => setTimeout(resolve, 300));
+if (!dom.window.document.body.textContent.includes('Кітапты ашу')) throw new Error('Кітап мұқабасы көрсетілмеді');
+if (errors.length) throw new Error(errors.join('\n'));
+process.stdout.write(`Жинақ HTTP ${response.status}: ${code.length} байт. Кітап мұқабасы көрсетілді. JavaScript қатесі жоқ.\n`);
+dom.window.close();
