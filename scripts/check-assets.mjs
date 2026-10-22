@@ -28,6 +28,8 @@ for (const name of ["academy", "fugitive"]) {
     throw new Error("Бөлімнің аудиосы толық қамтылмаған");
 }
 await access("public/images/portrait.webp");
+for (const image of ["heritage", "manuscript", "warning", "station"])
+  await access(`public/images/${image}.webp`);
 await access("public/audio/music/LICENSE.txt");
 const music = await parseFile("public/audio/music/meditation-impromptu-01.mp3");
 if (!music.format.hasAudio || music.format.duration < 200)

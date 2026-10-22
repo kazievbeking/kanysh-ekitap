@@ -1,0 +1,30 @@
+{
+  "description": "Анимациялық көріністерге арналған қосымша иллюстрациялар. Кіріктірілген image_gen құралы қолданылды.",
+  "mode": "built-in image_gen",
+  "reference": [
+    "public/images/portrait.webp",
+    "public/images/scholars.webp"
+  ],
+  "assets": [
+    {
+      "id": "heritage",
+      "output": "public/images/heritage.webp",
+      "prompt": "Use case: historical-scene. Asset for an animated Kazakh literary book, wide 16:9 framing. Match the provided scholarly painting's rich painterly archival style, finely rendered realistic textures, muted olive, sepia, warm cream and copper, evocative light, subtly textured paper. Use the supplied portrait as ONLY Kanysh Satbayev identity reference when he appears. Maintain identical broad face, swept wavy dark hair, thick eyebrows, clean shaven. Other people are anonymous illustrative figures. No text, no letters, no watermarks. A wide cinematic panorama of Kazakhstan steppe with a weathered ancient Turkic stone monument on the left, indistinct worn carved marks, grasses and distant mountains, warm late afternoon light, distant silhouettes of horse riders as a symbolic historical memory. No identifiable modern people. This is an illustrative recollection of cultural heritage mentioned in a book, not a reconstruction of a specific archaeological site. Leave generous sky and foreground depth for animated wind and birds."
+    },
+    {
+      "id": "manuscript",
+      "output": "public/images/manuscript.webp",
+      "prompt": "Use case: historical-scene. Asset for an animated Kazakh literary book, wide 16:9 framing. Match the provided scholarly painting's rich painterly archival style, finely rendered realistic textures, muted olive, sepia, warm cream and copper, evocative light, subtly textured paper. Use the supplied portrait as ONLY Kanysh Satbayev identity reference when he appears. Maintain identical broad face, swept wavy dark hair, thick eyebrows, clean shaven. Other people are anonymous illustrative figures. No text, no letters, no watermarks. Close-up wide cinematic view of a 1930s-1940s scholarly oak desk in Kazakhstan: open large cream paper notebook with faint indistinct cursive marks, dark fountain pen lying diagonally across a page, brass inkwell, a few old books, small geological specimen. Slanted sunlight from a tall window off frame. No hand or person, no legible writing. Empty lower right page for composited animated writing strokes. Objects arranged with generous clear depth for parallax."
+    },
+    {
+      "id": "warning",
+      "output": "public/images/warning.webp",
+      "prompt": "Use case: historical-scene. Asset for an animated Kazakh literary book, wide 16:9 framing. Match the provided scholarly painting's rich painterly archival style, finely rendered realistic textures, muted olive, sepia, warm cream and copper, evocative light, subtly textured paper. Use the supplied portrait as ONLY Kanysh Satbayev identity reference when he appears. Maintain identical broad face, swept wavy dark hair, thick eyebrows, clean shaven. Other people are anonymous illustrative figures. No text, no letters, no watermarks. 1951 Almaty apartment study, Kanysh Satbayev with the exact same facial identity as the master portrait, in a dark period suit, seated at a desk. An anonymous male colleague seen only from behind in dark coat is handing him a plain cream envelope and two small train tickets without legible writing. Satbayev calm but serious, face large enough to recognize. Dim teal shadows and warm desk lamp, no violence, no uniforms or invented identifiable portraits. Wide cinematic framing, room for layered envelope animation at lower left."
+    },
+    {
+      "id": "station",
+      "output": "public/images/station.webp",
+      "prompt": "Use case: historical-scene. Asset for an animated Kazakh literary book, wide 16:9 framing. Match the provided scholarly painting's rich painterly archival style, finely rendered realistic textures, muted olive, sepia, warm cream and copper, evocative light, subtly textured paper. Use the supplied portrait as ONLY Kanysh Satbayev identity reference when he appears. Maintain identical broad face, swept wavy dark hair, thick eyebrows, clean shaven. Other people are anonymous illustrative figures. No text, no letters, no watermarks. Wide cinematic 1951 Almaty railway station platform at dusk with snowy Alatau mountains in distance, dark olive vintage Soviet passenger carriages on the right receding toward horizon, distant steam locomotive, soft steam in the cold air. No close-up people and no foreground engine; leave lower left platform open and railway tracks visible for composited animated train moving across the lower foreground. Historically plausible period atmosphere, no modern electric trains, no text, no readable station signs."
+    }
+  ]
+}

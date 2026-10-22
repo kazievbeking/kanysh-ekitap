@@ -65,7 +65,7 @@ export function BookShell({
       </main>
       <footer className="site-footer">
         <span>«ОТБАСЫ ХРЕСТОМАТИЯСЫ» ЖОБАСЫ</span>
-        <span>Оқы. Тыңда. Ойлан.</span>
+        <span>Тыңда. Көр. Ойлан.</span>
         <span>ҚАНЫШ ЖӘНЕ ҒЫЛЫМИ МАЙДАН</span>
       </footer>
     </div>

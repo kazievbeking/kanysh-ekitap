@@ -33,7 +33,9 @@ it("фон ерікті қосылады, диктор астында бәсең
   expect(narration.paused).toBe(true);
   await waitFor(() => expect(background.paused).toBe(true));
   const game = screen.getByRole("dialog", { name: "ОЙЛАНУ СӘТІ" });
-  await user.click(within(game).getByRole("button", { name: "Мәтінге оралу" }));
+  await user.click(
+    within(game).getByRole("button", { name: "Анимацияға оралу" }),
+  );
   await waitFor(() => expect(background.paused).toBe(false));
   await user.click(
     screen.getByRole("button", { name: "Фондық музыканы өшіру" }),

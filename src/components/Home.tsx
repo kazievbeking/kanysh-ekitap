@@ -70,10 +70,10 @@ export function Home({
                   </div>
                   <span className="progress-caption">
                     {percent === 100
-                      ? "Оқылды"
+                      ? "Қаралды"
                       : percent > 0
-                        ? `${percent}% оқылды`
-                        : "Оқуды бастау"}
+                        ? `${percent}% қаралды`
+                        : "Көруді бастау"}
                   </span>
                 </div>
                 <Icon name="ArrowRight" size={20} />

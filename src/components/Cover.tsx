@@ -31,8 +31,8 @@ export function Cover({
           <em>ғылыми майданы.</em>
         </h1>
         <p>
-          Қаныш Сәтбаевтың әлеміне қадам басыңыз. Кітапты оқып, тыңдап, тарихты
-          жаңа қырынан таныңыз.
+          Қаныш Сәтбаевтың әлеміне қадам басыңыз. Әңгімені тыңдап, анимациялық
+          көріністер арқылы тарихты жаңа қырынан таныңыз.
         </p>
         <button className="button primary" onClick={open} disabled={opening}>
           Кітапты ашу
@@ -41,7 +41,7 @@ export function Cover({
         {hasProgress && (
           <button className="resume-link" onClick={onResume}>
             <Icon name="Bookmark" size={16} />
-            Оқуды жалғастыру
+            Көруді жалғастыру
           </button>
         )}
         <div className="cover-features">

@@ -4,22 +4,106 @@ import { chapters } from "../data/book";
 import { Icon } from "./Icon";
 import type { IconName } from "./Icon";
 import { OpeningFactsGame, JourneyRouteGame } from "./ExtraGames";
-const cardIcons: Record<string, IconName> = { artifact:"Landmark",book:"BookOpen",music:"Music2",letter:"Mail",ticket:"Ticket",case:"Briefcase",train:"TrainFront" };
-export function Game({id,onContinue,onRead}:{id:string;onContinue:()=>void;onRead:()=>void}) {
-  const [success,setSuccess]=useState(false), [hint,setHint]=useState(false), [message,setMessage]=useState("");
-  const definition=gameDetails[id];
-  if(!definition) return <p>Тапсырма табылмады.</p>;
-  const chapter=chapters[definition.chapter];
-  const onCheck=(ok:boolean)=>{setSuccess(ok);setMessage(ok?"":definition.retry);};
-  return <div className="game-layout">
-    <aside className="game-source"><span className="eyebrow"><Icon name="BookOpen" size={15}/>КІТАПТАН ҮЗІНДІ</span><blockquote>{definition.scenes.map(i=>chapter.scenes[i].paragraphs.join("\n\n")).join("\n\n")}</blockquote><p className="source-note">«Қаныш және ғылыми майдан», {chapter.pages}-беттерден берілген мәтін.</p>{id==="science-team"&&<p className="source-note">PDF-те үш ғалымның салалары толық көрсетілмеген. Ойындағы сәйкестіктер жоба тапсырмасына негізделген.</p>}<button className="text-button" onClick={onRead}><Icon name="ArrowLeft" size={16}/>Мәтінге оралу</button></aside>
-    <div className="game-workspace"><span className="small-label">ОҚИҒА ІШІНДЕГІ ОЙЫН · {definition.number}</span><h2>{definition.title}</h2><p className="game-instruction">{definition.instruction}</p>
-    {!success ? <>
-      {id==="science-team"?<ScienceGame hint={hint} onCheck={onCheck}/>:id==="event-chain"?<SequenceGame onCheck={onCheck}/>:id==="opening-facts"?<OpeningFactsGame onCheck={onCheck}/>:<JourneyRouteGame onCheck={onCheck}/>}
-      <div className="game-feedback" role="status">{message}</div><button className="text-button hint-button" onClick={()=>setHint(!hint)} aria-expanded={hint}><Icon name="Lightbulb" size={17}/>{hint?"Кеңесті жабу":"Кеңес алу"}</button>{hint&&<div className="hint">{definition.hint}</div>}
-    </>:<div className="game-success" role="status"><span className="success-mark"><Icon name="Check" size={32}/></span><h3>Керемет, шешім табылды!</h3><p>{definition.explanation}</p><button className="button primary" onClick={onContinue}>Әңгімені жалғастыру<Icon name="ArrowRight" size={18}/></button></div>}
+const cardIcons: Record<string, IconName> = {
+  artifact: "Landmark",
+  book: "BookOpen",
+  music: "Music2",
+  letter: "Mail",
+  ticket: "Ticket",
+  case: "Briefcase",
+  train: "TrainFront",
+};
+export function Game({
+  id,
+  onContinue,
+  onRead,
+}: {
+  id: string;
+  onContinue: () => void;
+  onRead: () => void;
+}) {
+  const [success, setSuccess] = useState(false),
+    [hint, setHint] = useState(false),
+    [message, setMessage] = useState("");
+  const definition = gameDetails[id];
+  if (!definition) return <p>Тапсырма табылмады.</p>;
+  const chapter = chapters[definition.chapter];
+  const onCheck = (ok: boolean) => {
+    setSuccess(ok);
+    setMessage(ok ? "" : definition.retry);
+  };
+  return (
+    <div className="game-layout">
+      <aside className="game-source">
+        <span className="eyebrow">
+          <Icon name="BookOpen" size={15} />
+          КІТАПТАН ҮЗІНДІ
+        </span>
+        <blockquote>
+          {definition.scenes
+            .map((i) => chapter.scenes[i].paragraphs.join("\n\n"))
+            .join("\n\n")}
+        </blockquote>
+        <p className="source-note">
+          «Қаныш және ғылыми майдан», {chapter.pages}-беттерден берілген мәтін.
+        </p>
+        {id === "science-team" && (
+          <p className="source-note">
+            PDF-те үш ғалымның салалары толық көрсетілмеген. Ойындағы
+            сәйкестіктер жоба тапсырмасына негізделген.
+          </p>
+        )}
+        <button className="text-button" onClick={onRead}>
+          <Icon name="ArrowLeft" size={16} />
+          Анимацияға оралу
+        </button>
+      </aside>
+      <div className="game-workspace">
+        <span className="small-label">
+          ОҚИҒА ІШІНДЕГІ ОЙЫН · {definition.number}
+        </span>
+        <h2>{definition.title}</h2>
+        <p className="game-instruction">{definition.instruction}</p>
+        {!success ? (
+          <>
+            {id === "science-team" ? (
+              <ScienceGame hint={hint} onCheck={onCheck} />
+            ) : id === "event-chain" ? (
+              <SequenceGame onCheck={onCheck} />
+            ) : id === "opening-facts" ? (
+              <OpeningFactsGame onCheck={onCheck} />
+            ) : (
+              <JourneyRouteGame onCheck={onCheck} />
+            )}
+            <div className="game-feedback" role="status">
+              {message}
+            </div>
+            <button
+              className="text-button hint-button"
+              onClick={() => setHint(!hint)}
+              aria-expanded={hint}
+            >
+              <Icon name="Lightbulb" size={17} />
+              {hint ? "Кеңесті жабу" : "Кеңес алу"}
+            </button>
+            {hint && <div className="hint">{definition.hint}</div>}
+          </>
+        ) : (
+          <div className="game-success" role="status">
+            <span className="success-mark">
+              <Icon name="Check" size={32} />
+            </span>
+            <h3>Керемет, шешім табылды!</h3>
+            <p>{definition.explanation}</p>
+            <button className="button primary" onClick={onContinue}>
+              Әңгімені жалғастыру
+              <Icon name="ArrowRight" size={18} />
+            </button>
+          </div>
+        )}
+      </div>
     </div>
-  </div>;
+  );
 }
 function ScienceGame({
   hint,

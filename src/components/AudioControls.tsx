@@ -12,6 +12,7 @@ export type AudioHandle = {
   pause: () => void;
   isPlaying: () => boolean;
   play: () => void;
+  getTime: () => number;
 };
 const time = (n: number) =>
   `${Math.floor(Math.max(0, n) / 60)}:${String(Math.floor(Math.max(0, n) % 60)).padStart(2, "0")}`;
@@ -44,6 +45,8 @@ export const AudioControls = forwardRef<
 ) {
   const audio = useRef<HTMLAudioElement>(null),
     reached = useRef(false),
+    pendingPlay = useRef(false),
+    shouldAutoPlay = useRef(autoPlay),
     stopTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [playing, setPlaying] = useState(false),
     [position, setPosition] = useState(segment?.start ?? 0),
@@ -52,7 +55,12 @@ export const AudioControls = forwardRef<
   const callbacks = useRef({ onBoundary, onPlaying, onTime });
   callbacks.current = { onBoundary, onPlaying, onTime };
   async function play() {
-    if (!audio.current || !segment || !ready) return;
+    if (!audio.current || !segment) return;
+    if (!ready) {
+      pendingPlay.current = true;
+      setError("Аудио жүктелуде. Әңгіме жүктелген соң басталады.");
+      return;
+    }
     try {
       if (audio.current.currentTime >= segment.end - 0.05)
         audio.current.currentTime = segment.start;
@@ -64,7 +72,12 @@ export const AudioControls = forwardRef<
     }
   }
   useImperativeHandle(ref, () => ({
-    pause: () => audio.current?.pause(),
+    getTime: () => audio.current?.currentTime ?? 0,
+    pause: () => {
+      pendingPlay.current = false;
+      shouldAutoPlay.current = false;
+      audio.current?.pause();
+    },
     isPlaying: () => !!audio.current && !audio.current.paused,
     play: () => {
       void play();
@@ -122,7 +135,11 @@ export const AudioControls = forwardRef<
               : start;
           setPosition(el.currentTime);
           setReady(true);
-          if (autoPlay) {
+          setError("");
+          const startPlaying = shouldAutoPlay.current || pendingPlay.current;
+          shouldAutoPlay.current = false;
+          if (startPlaying) {
+            pendingPlay.current = false;
             reached.current = false;
             void el
               .play()
@@ -138,6 +155,14 @@ export const AudioControls = forwardRef<
         }}
         onPause={() => {
           if (stopTimer.current) clearTimeout(stopTimer.current);
+          if (audio.current && ready) {
+            const stoppedAt = Math.max(
+              start,
+              Math.min(end, audio.current.currentTime),
+            );
+            setPosition(stoppedAt);
+            callbacks.current.onTime(stoppedAt);
+          }
           setPlaying(false);
           callbacks.current.onPlaying(false);
         }}
@@ -157,7 +182,7 @@ export const AudioControls = forwardRef<
         onPlaying={scheduleBoundary}
         onEnded={boundary}
         onError={() =>
-          setError("Аудиофайл ашылмады. Мәтінді оқуды жалғастыра аласыз.")
+          setError("Аудиофайл ашылмады. Ойнату батырмасын қайта басып көріңіз.")
         }
       />
       <button
