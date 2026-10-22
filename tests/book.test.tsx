@@ -29,16 +29,34 @@ function ready() {
   fireEvent.loadedMetadata(media());
 }
 async function solveOpening(user: ReturnType<typeof userEvent.setup>) {
-  const dialog = await screen.findByRole("dialog", {name:"ОЙЛАНУ СӘТІ"});
-  for (const answer of ["1946", "1 шілде", "Абай атындағы Опера және балет театры"]) await user.click(within(dialog).getByRole("button",{name:answer,exact:true}));
-  await user.click(within(dialog).getByRole("button",{name:"Үзіндіні тексеру"}));
-  await user.click(within(dialog).getByRole("button",{name:"Әңгімені жалғастыру"}));
+  const dialog = await screen.findByRole("dialog", { name: "ОЙЛАНУ СӘТІ" });
+  for (const answer of [
+    "1946",
+    "1 шілде",
+    "Абай атындағы Опера және балет театры",
+  ])
+    await user.click(
+      within(dialog).getByRole("button", { name: answer, exact: true }),
+    );
+  await user.click(
+    within(dialog).getByRole("button", { name: "Үзіндіні тексеру" }),
+  );
+  await user.click(
+    within(dialog).getByRole("button", { name: "Әңгімені жалғастыру" }),
+  );
 }
 async function solveRoute(user: ReturnType<typeof userEvent.setup>) {
-  const dialog = await screen.findByRole("dialog", {name:"ОЙЛАНУ СӘТІ"});
-  for (const city of ["Алматы","Қызылорда","Орал","Қазан","Мәскеу"]) await user.click(within(dialog).getByRole("button",{name:city,exact:true}));
-  await user.click(within(dialog).getByRole("button",{name:"Бағытты тексеру"}));
-  await user.click(within(dialog).getByRole("button",{name:"Әңгімені жалғастыру"}));
+  const dialog = await screen.findByRole("dialog", { name: "ОЙЛАНУ СӘТІ" });
+  for (const city of ["Алматы", "Қызылорда", "Орал", "Қазан", "Мәскеу"])
+    await user.click(
+      within(dialog).getByRole("button", { name: city, exact: true }),
+    );
+  await user.click(
+    within(dialog).getByRole("button", { name: "Бағытты тексеру" }),
+  );
+  await user.click(
+    within(dialog).getByRole("button", { name: "Әңгімені жалғастыру" }),
+  );
 }
 describe("Кітаптың толық сценарийлері", () => {
   it("PDF-тен алынған мәтін көріністерде қысқартусыз сақталған", () => {
@@ -222,8 +240,13 @@ describe("Кітаптың толық сценарийлері", () => {
     await go("#/encyclopedia");
     expect(oldAudio.paused).toBe(true);
     const page = document.querySelector(".encyclopedia")!;
-    expect(page.children.length).toBe(2);
-    expect(page.textContent).toBe("Кері қайтуЭнциклопедия");
+    expect(page.querySelectorAll(".encyclopedia-sections button").length).toBe(
+      3,
+    );
+    expect(page.textContent).toContain("Қаныш әлемі");
+    expect(page.textContent).toContain(
+      "Маңғыстаудың байлығы бірнеше ұрпаққа жетеді",
+    );
     expect(
       document.querySelector("audio:not([data-background-music])"),
     ).toBeNull();
@@ -246,7 +269,10 @@ describe("Кітаптың толық сценарийлері", () => {
   });
   it("көріністі қайта таңдағанда басынан басталады, ал бет жаңарғанда сақталған жері ашылады", async () => {
     const user = userEvent.setup();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({...freshProgress(),completedGames:["opening-facts"]}));
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ ...freshProgress(), completedGames: ["opening-facts"] }),
+    );
     location.hash = "#/read/academy/1";
     render(<App />);
     ready();
