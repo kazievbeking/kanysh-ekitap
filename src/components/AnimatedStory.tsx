@@ -6,6 +6,7 @@ import type { Scene } from "../types";
 import { FilmLayers } from "./FilmLayers";
 import { Icon } from "./Icon";
 import "./animated-story.css";
+import { filmFrame } from "../data/filmFrame";
 
 export function AnimatedStory({
   scene,
@@ -39,6 +40,15 @@ export function AnimatedStory({
       );
       root.current?.style.setProperty("--elapsed", String(clamped));
       const next = shotAt(shots, clamped);
+      root.current
+        ?.querySelectorAll<HTMLElement>(".film-shot")
+        .forEach((element, index) => {
+          const frame = filmFrame(shots, index, clamped, duration);
+          element.style.opacity = String(frame.opacity);
+          element.style.visibility = frame.visible ? "visible" : "hidden";
+          const image = element.querySelector<HTMLElement>(".film-backdrop");
+          if (image) image.style.transform = frame.transform;
+        });
       if (next !== activeRef.current) {
         activeRef.current = next;
         setActive(next);
@@ -71,6 +81,10 @@ export function AnimatedStory({
           key={`${scene.id}-${i}`}
           style={
             {
+              opacity: filmFrame(shots, i, elapsed, duration).opacity,
+              visibility: filmFrame(shots, i, elapsed, duration).visible
+                ? "visible"
+                : "hidden",
               "--at": shot.at,
               "--until": shots[i + 1]?.at ?? duration + 1,
               "--span": Math.max(1, (shots[i + 1]?.at ?? duration) - shot.at),
@@ -83,6 +97,9 @@ export function AnimatedStory({
         >
           <img
             className="film-backdrop"
+            style={{
+              transform: filmFrame(shots, i, elapsed, duration).transform,
+            }}
             src={asset(`images/${shot.image}.webp`)}
             alt={imageDescriptions[shot.image] ?? scene.caption}
             loading={i < 2 ? "eager" : "lazy"}

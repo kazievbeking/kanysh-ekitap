@@ -32,10 +32,6 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  opacity: min(
-    clamp(0, calc(var(--elapsed) - var(--at) + var(--fade-in)), 1),
-    clamp(0, calc(var(--until) + 1 - var(--elapsed)), 1)
-  );
   pointer-events: none;
 }
 .film-backdrop {
@@ -44,8 +40,9 @@
   object-fit: cover;
   object-position: var(--focus);
   transform-origin: var(--focus);
-  animation: film-camera calc(var(--span) * 1s) linear both paused;
-  animation-delay: calc((var(--at) - var(--elapsed)) * 1s);
+  position: absolute;
+  inset: 0;
+  max-width: none;
   will-change: transform;
 }
 .film-effects {
@@ -492,14 +489,6 @@
 .film-cuts .active {
   background: #e2c28c;
 }
-@keyframes film-camera {
-  from {
-    transform: scale(1.025) translateX(calc(-1% * var(--direction)));
-  }
-  to {
-    transform: scale(1.14) translateX(calc(1% * var(--direction)));
-  }
-}
 @keyframes film-light {
   0%,
   100% {
@@ -794,10 +783,10 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .film-shot {
-    opacity: 0;
+    opacity: 0 !important;
   }
   .film-shot[data-active="true"] {
-    opacity: 1;
+    opacity: 1 !important;
   }
   .film-mote,
   .film-birds,
@@ -809,7 +798,7 @@
     display: none;
   }
   .film-backdrop {
-    transform: none;
+    transform: none !important;
   }
   .animated-train {
     transform: translateX(-5%);
@@ -819,10 +808,10 @@
   }
 }
 html[data-reduced-motion="true"] .film-shot {
-  opacity: 0;
+  opacity: 0 !important;
 }
 html[data-reduced-motion="true"] .film-shot[data-active="true"] {
-  opacity: 1;
+  opacity: 1 !important;
 }
 html[data-reduced-motion="true"]
   :is(
@@ -837,7 +826,7 @@ html[data-reduced-motion="true"]
   display: none;
 }
 html[data-reduced-motion="true"] .film-backdrop {
-  transform: none;
+  transform: none !important;
 }
 html[data-reduced-motion="true"] .animated-train {
   transform: translateX(-5%);
