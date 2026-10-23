@@ -4,7 +4,7 @@ const manifest = JSON.parse(
   await readFile("src/data/audio-manifest.json", "utf8"),
 );
 let count = 0;
-for (const name of ["academy", "fugitive"]) {
+for (const name of ["academy", "protect", "fugitive"]) {
   const scenes = JSON.parse(await readFile(`src/data/${name}.json`, "utf8"));
   let end = 0;
   for (const scene of scenes) {

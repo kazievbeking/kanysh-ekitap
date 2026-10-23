@@ -6,6 +6,12 @@ import type { Scene } from "../types";
 import { FilmLayers } from "./FilmLayers";
 import { Icon } from "./Icon";
 import "./animated-story.css";
+import "./academy-motion.css";
+import { LivingIllustration } from "./LivingIllustration";
+import { FugitiveDetails } from "./FugitiveDetails";
+import "./fugitive-motion.css";
+import { AcademyDetails } from "./AcademyDetails";
+import { usesLivingIllustration } from "../data/academyMotion";
 import { filmFrame } from "../data/filmFrame";
 
 export function AnimatedStory({
@@ -46,8 +52,15 @@ export function AnimatedStory({
           const frame = filmFrame(shots, index, clamped, duration);
           element.style.opacity = String(frame.opacity);
           element.style.visibility = frame.visible ? "visible" : "hidden";
-          const image = element.querySelector<HTMLElement>(".film-backdrop");
+          const image =
+            element.querySelector<HTMLElement>(".film-camera-plane");
           if (image) image.style.transform = frame.transform;
+          if (frame.visible)
+            element
+              .querySelector("canvas")
+              ?.dispatchEvent(
+                new CustomEvent("film-time", { detail: clamped }),
+              );
         });
       if (next !== activeRef.current) {
         activeRef.current = next;
@@ -72,11 +85,12 @@ export function AnimatedStory({
       aria-label={`${scene.title}: анимациялық көрініс`}
       data-playing={playing && !blocked}
       data-shot={active}
+      data-chapter={scene.id.split("-")[0]}
       style={{ "--elapsed": Math.max(0, elapsed) } as CSSProperties}
     >
       {shots.map((shot, i) => (
         <div
-          className={`film-shot film-${shot.effect}`}
+          className={`film-shot film-shot-effect-${shot.effect}`}
           data-active={active === i}
           key={`${scene.id}-${i}`}
           style={
@@ -95,16 +109,42 @@ export function AnimatedStory({
           }
           aria-hidden={active !== i}
         >
-          <img
-            className="film-backdrop"
+          <div
+            className="film-camera-plane"
             style={{
               transform: filmFrame(shots, i, elapsed, duration).transform,
             }}
-            src={asset(`images/${shot.image}.webp`)}
-            alt={imageDescriptions[shot.image] ?? scene.caption}
-            loading={i < 2 ? "eager" : "lazy"}
-            draggable={false}
-          />
+          >
+            <img
+              className="film-backdrop"
+              src={asset(`images/${shot.image}.webp`)}
+              alt={imageDescriptions[shot.image] ?? scene.caption}
+              loading={i < 2 ? "eager" : "lazy"}
+              draggable={false}
+            />
+            {usesLivingIllustration(scene.id, shot) && (
+              <LivingIllustration
+                src={asset(`images/${shot.image}.webp`)}
+                image={shot.image}
+                focus={shot.focus ?? "50% 50%"}
+              />
+            )}
+            {scene.id.startsWith("protect-") && (
+              <div
+                className={`protect-atmosphere protect-atmosphere-${shot.image}`}
+                aria-hidden="true"
+              />
+            )}
+            {scene.id.startsWith("fugitive-") && (
+              <FugitiveDetails
+                image={shot.image}
+                focus={shot.focus ?? "50% 50%"}
+              />
+            )}
+          </div>
+          {scene.id.startsWith("academy-") && (
+            <AcademyDetails image={shot.image} />
+          )}
           <FilmLayers effect={shot.effect} />
         </div>
       ))}

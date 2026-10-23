@@ -7,7 +7,22 @@ const response = await fetch(new URL(script, base));
 const code = await response.text();
 if (!response.ok || code.length < 10000)
   throw new Error("JavaScript жинағы ашылмады");
-for (const route of ["#/read/academy/0", "#/read/fugitive/3"]) {
+for (const route of [
+  "#/read/academy/0",
+  "#/read/academy/1",
+  "#/read/academy/2",
+  "#/read/academy/3",
+  "#/read/protect/0",
+  "#/read/protect/1",
+  "#/read/protect/2",
+  "#/read/protect/3",
+  "#/read/protect/4",
+  "#/read/fugitive/0",
+  "#/read/fugitive/1",
+  "#/read/fugitive/2",
+  "#/read/fugitive/3",
+  "#/read/fugitive/4",
+]) {
   const errors = [];
   const virtualConsole = new VirtualConsole();
   virtualConsole.on("jsdomError", (e) => errors.push(e.message));
@@ -18,6 +33,7 @@ for (const route of ["#/read/academy/0", "#/read/fugitive/3"]) {
     virtualConsole,
   });
   dom.window.scrollTo = () => {};
+  dom.window.HTMLCanvasElement.prototype.getContext = () => null;
   dom.window.HTMLMediaElement.prototype.pause = function () {};
   dom.window.HTMLMediaElement.prototype.play = function () {
     return Promise.resolve();
@@ -29,8 +45,8 @@ for (const route of ["#/read/academy/0", "#/read/fugitive/3"]) {
     throw new Error("Анимациялық көрсетілім ашылмады: " + route);
   if (doc.querySelectorAll(".film-shot").length < 2)
     throw new Error("Жоспарлар жетіспейді");
-  if (route.includes("fugitive") && !doc.querySelector(".animated-train"))
-    throw new Error("Пойыз қабаты жоқ");
+  if (route.includes("fugitive") && !doc.querySelector(".fugitive-details"))
+    throw new Error("Екінші бөлімнің қозғалыс қабаты жоқ");
   if (errors.length) throw new Error(errors.join("\n"));
   console.log(
     route,

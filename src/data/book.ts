@@ -1,4 +1,5 @@
 import academy from "./academy.json";
+import protect from "./protect.json";
 import fugitive from "./fugitive.json";
 import type { Chapter } from "../types";
 
@@ -10,6 +11,14 @@ export const chapters: Chapter[] = [
     pages: "117–119",
     year: "1946",
     scenes: academy,
+  },
+  {
+    id: "protect",
+    title: "Мен болмайын, сен бол!",
+    subtitle: "Қысымға қарсы тұру, әріптесті қорғау және ел мұрасы.",
+    pages: "284–285",
+    year: "Қуғын-сүргін кезеңі",
+    scenes: protect,
   },
   {
     id: "fugitive",

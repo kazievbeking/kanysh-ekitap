@@ -1,0 +1,179 @@
+﻿.fugitive-details {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  --journey-delay: calc(-1s * var(--elapsed));
+}
+.fugitive-lamp-glow {
+  opacity: 0.055;
+  mix-blend-mode: screen;
+  animation: fugitive-light-breathe 9s ease-in-out infinite both paused;
+  animation-delay: var(--journey-delay);
+}
+.fugitive-tea-steam {
+  opacity: 0.17;
+  filter: blur(3px);
+  transform-origin: 645px 690px;
+  animation: fugitive-tea-rise 8s ease-out infinite both paused;
+  animation-delay: var(--journey-delay);
+}
+.fugitive-room-curtain {
+  opacity: 0.1;
+  filter: blur(3px);
+  animation: fugitive-curtain-sway 12s ease-in-out infinite both paused;
+  animation-delay: var(--journey-delay);
+}
+.fugitive-paper-light {
+  opacity: 0.25;
+  animation: fugitive-paper-shimmer 7s ease-in-out infinite both paused;
+  animation-delay: var(--journey-delay);
+}
+.fugitive-window-reflection {
+  animation: fugitive-reflection-pass 18s linear infinite both paused;
+  animation-delay: var(--journey-delay);
+}
+.fugitive-window-poles {
+  animation: fugitive-pole-travel 10s linear infinite both paused;
+  animation-delay: var(--journey-delay);
+}
+.fugitive-window-vapor {
+  opacity: 0.19;
+  filter: blur(10px);
+  animation: fugitive-window-steam 11s ease-out infinite both paused;
+  animation-delay: var(--journey-delay);
+}
+.fugitive-platform-vapor {
+  opacity: 0.19;
+  filter: blur(12px);
+  animation: fugitive-platform-steam 13s ease-in-out infinite both paused;
+  animation-delay: var(--journey-delay);
+}
+.fugitive-platform-light {
+  opacity: 0.1;
+  filter: blur(10px);
+  animation: fugitive-light-breathe 11s ease-in-out infinite both paused;
+  animation-delay: var(--journey-delay);
+}
+.fugitive-drift {
+  opacity: 0.2;
+  animation: fugitive-dust-drift 17s linear infinite both paused;
+  animation-delay: calc(var(--journey-delay) - var(--drift) * 3s);
+}
+/* The train illustration already contains the carriage. Keep its window moving
+   without placing a second, symbolic locomotive over the passengers. */
+.film-stage[data-chapter="fugitive"]
+  :is(.animated-train, .film-track, .film-steam, .passing-poles, .film-letter) {
+  display: none;
+}
+@keyframes fugitive-light-breathe {
+  0%,
+  100% {
+    opacity: 0.045;
+  }
+  50% {
+    opacity: 0.12;
+  }
+}
+@keyframes fugitive-tea-rise {
+  0% {
+    transform: translateY(5px) scale(0.85);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.18;
+  }
+  100% {
+    transform: translate(9px, -32px) scale(1.1);
+    opacity: 0;
+  }
+}
+@keyframes fugitive-curtain-sway {
+  0%,
+  100% {
+    transform: translateX(-2px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+}
+@keyframes fugitive-paper-shimmer {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes fugitive-reflection-pass {
+  from {
+    transform: translateX(380px);
+  }
+  to {
+    transform: translateX(-500px);
+  }
+}
+@keyframes fugitive-pole-travel {
+  from {
+    transform: translateX(300px);
+  }
+  to {
+    transform: translateX(-700px);
+  }
+}
+@keyframes fugitive-window-steam {
+  0% {
+    transform: translate(10px, 30px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.23;
+  }
+  100% {
+    transform: translate(-60px, -60px);
+    opacity: 0;
+  }
+}
+@keyframes fugitive-platform-steam {
+  0%,
+  100% {
+    transform: translate(0, 12px);
+    opacity: 0.08;
+  }
+  50% {
+    transform: translate(-25px, -35px);
+    opacity: 0.2;
+  }
+}
+@keyframes fugitive-dust-drift {
+  0% {
+    transform: translate(0, 20px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.25;
+  }
+  100% {
+    transform: translate(-25px, -70px);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fugitive-details * {
+    animation: none !important;
+  }
+  .fugitive-window-poles,
+  .fugitive-tea-steam,
+  .fugitive-drift {
+    display: none;
+  }
+}
+html[data-reduced-motion="true"] .fugitive-details * {
+  animation: none !important;
+}
+html[data-reduced-motion="true"]
+  :is(.fugitive-window-poles, .fugitive-tea-steam, .fugitive-drift) {
+  display: none;
+}

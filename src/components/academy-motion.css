@@ -1,0 +1,275 @@
+﻿/* The camera moves the original and the living texture together, so hands stay
+   registered to the image across all screen sizes and camera positions. */
+.film-camera-plane {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: var(--focus);
+  will-change: transform;
+}
+.film-camera-plane .film-backdrop {
+  transform: none;
+  will-change: auto;
+}
+.film-living-illustration {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+.film-living-illustration[data-ready="true"] {
+  opacity: 1;
+}
+.academy-details {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  --academy-delay: calc(-1s * var(--elapsed));
+}
+.academy-sunwash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 10%, #fff0b225, transparent 60%);
+  mix-blend-mode: screen;
+  animation: academy-warmth 13s ease-in-out infinite both paused;
+  animation-delay: var(--academy-delay);
+}
+.academy-leaves {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.65;
+}
+.academy-leaf {
+  animation: academy-leaf-fall 19s linear infinite both paused;
+  animation-delay: calc(var(--academy-delay) - var(--leaf) * 2.7s);
+}
+.academy-horizon-haze {
+  position: absolute;
+  left: 25%;
+  right: -10%;
+  top: 43%;
+  height: 22%;
+  background: radial-gradient(ellipse, #f5d38c35, transparent 68%);
+  filter: blur(15px);
+  animation: academy-haze 26s ease-in-out infinite both paused;
+  animation-delay: var(--academy-delay);
+}
+.academy-window-light {
+  position: absolute;
+  right: -8%;
+  top: -15%;
+  width: 65%;
+  height: 110%;
+  background: linear-gradient(
+    120deg,
+    transparent 15%,
+    #f5d99b1f 35%,
+    transparent 58%
+  );
+  mix-blend-mode: screen;
+  animation: academy-warmth 11s ease-in-out infinite both paused;
+  animation-delay: var(--academy-delay);
+}
+.academy-hall-light {
+  position: absolute;
+  left: 6%;
+  top: 10%;
+  width: 23%;
+  height: 40%;
+  background: radial-gradient(ellipse, #ffd48b29, transparent 68%);
+  mix-blend-mode: screen;
+  animation: academy-warmth 7s ease-in-out infinite both paused;
+  animation-delay: var(--academy-delay);
+}
+.hall-light-two {
+  left: 17%;
+  top: 48%;
+  width: 20%;
+  height: 25%;
+  animation-delay: calc(var(--academy-delay) - 3s);
+}
+.academy-notebook {
+  position: absolute;
+  right: 4%;
+  bottom: 5%;
+  width: 34%;
+  max-width: 430px;
+  opacity: 0.8;
+  filter: drop-shadow(4px 8px 9px #34231540);
+  transform: rotate(-5deg);
+}
+.academy-paper {
+  animation: academy-paper-breathe 9s ease-in-out infinite both paused;
+  animation-delay: var(--academy-delay);
+  transform-origin: 260px 240px;
+}
+.academy-map-line {
+  stroke-dasharray: 1;
+  animation: academy-map-draw 14s ease-in-out infinite both paused;
+  animation-delay: var(--academy-delay);
+}
+.academy-map-points {
+  animation: academy-point-glow 7s ease-in-out infinite both paused;
+  animation-delay: var(--academy-delay);
+}
+.academy-drawing-pencil {
+  animation: academy-pencil-write 14s ease-in-out infinite both paused;
+  animation-delay: var(--academy-delay);
+  transform-origin: 331px 82px;
+}
+.academy-page-corner {
+  animation: academy-page-curl 9s ease-in-out infinite both paused;
+  animation-delay: var(--academy-delay);
+  transform-origin: 443px 23px;
+}
+@keyframes academy-warmth {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes academy-leaf-fall {
+  0% {
+    transform: translate(30px, -65px) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(510px, 650px) rotate(260deg);
+    opacity: 0;
+  }
+}
+@keyframes academy-haze {
+  0%,
+  100% {
+    transform: translateX(-4%) scaleY(0.85);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(5%) scaleY(1.1);
+    opacity: 0.9;
+  }
+}
+@keyframes academy-paper-breathe {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(0.4deg);
+  }
+}
+@keyframes academy-page-curl {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.65);
+  }
+}
+@keyframes academy-map-draw {
+  0%,
+  8% {
+    stroke-dashoffset: 1;
+  }
+  75%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes academy-point-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes academy-pencil-write {
+  0%,
+  8% {
+    transform: translate(-230px, 98px) rotate(-8deg);
+  }
+  32% {
+    transform: translate(-160px, 70px) rotate(4deg);
+  }
+  50% {
+    transform: translate(-90px, 54px) rotate(-5deg);
+  }
+  75% {
+    transform: translate(35px, -7px) rotate(4deg);
+  }
+  90%,
+  100% {
+    transform: translate(35px, -7px) rotate(-12deg);
+  }
+}
+@media (max-width: 760px) {
+  .academy-notebook {
+    width: 48%;
+    right: 3%;
+    bottom: 9%;
+  }
+  .academy-leaves {
+    opacity: 0.45;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .film-camera-plane {
+    transform: none !important;
+  }
+  .film-living-illustration,
+  .academy-leaves {
+    display: none;
+  }
+  .academy-details * {
+    animation: none !important;
+  }
+}
+html[data-reduced-motion="true"] .film-camera-plane {
+  transform: none !important;
+}
+html[data-reduced-motion="true"]
+  :is(.film-living-illustration, .academy-leaves) {
+  display: none;
+}
+html[data-reduced-motion="true"] .academy-details * {
+  animation: none !important;
+}
+.academy-details-manuscript ~ .film-effects .film-ink {
+  display: none;
+}
+
+.protect-atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 75% 25%, #f6d19518, transparent 60%);
+  mix-blend-mode: screen;
+  animation: academy-warmth 12s ease-in-out infinite both paused;
+  animation-delay: calc(-1s * var(--elapsed));
+}
+.protect-atmosphere-hospital {
+  background: linear-gradient(
+    110deg,
+    transparent 45%,
+    #f5dfb220 70%,
+    transparent 95%
+  );
+}

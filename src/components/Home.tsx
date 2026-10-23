@@ -40,7 +40,7 @@ export function Home({
         <span className="eyebrow">КІТАП ІШІНДЕ</span>
         <h2>Мазмұны</h2>
         <p className="section-description">
-          Екі оқиға. Ғылым жолындағы бір тағдыр.
+          Үш оқиға. Ғылым жолындағы бір тағдыр.
         </p>
         <div className="chapter-list">
           {chapters.map((c, i) => {

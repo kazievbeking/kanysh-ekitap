@@ -35,6 +35,11 @@ Object.defineProperty(HTMLDialogElement.prototype, "close", {
   },
 });
 window.scrollTo = vi.fn();
+// jsdom has no GPU: the default exercises the intact-image fallback.
+Object.defineProperty(HTMLCanvasElement.prototype, "getContext", {
+  configurable: true,
+  value: vi.fn(() => null),
+});
 afterEach(() => {
   cleanup();
   vi.clearAllMocks();

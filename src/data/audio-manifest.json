@@ -48,6 +48,31 @@
       "file": "audio/chapter-2.mp3",
       "start": 221.88,
       "end": 269.5314285714286
+    },
+    "protect-01": {
+      "file": "audio/chapter-3.mp3",
+      "start": 0,
+      "end": 63.78
+    },
+    "protect-02": {
+      "file": "audio/chapter-3.mp3",
+      "start": 63.78,
+      "end": 105.23
+    },
+    "protect-03": {
+      "file": "audio/chapter-3.mp3",
+      "start": 105.23,
+      "end": 168.76
+    },
+    "protect-04": {
+      "file": "audio/chapter-3.mp3",
+      "start": 168.76,
+      "end": 190
+    },
+    "protect-05": {
+      "file": "audio/chapter-3.mp3",
+      "start": 190,
+      "end": 274.442438
     }
   }
 }

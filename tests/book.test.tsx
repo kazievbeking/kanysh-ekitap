@@ -70,10 +70,13 @@ describe("Кітаптың толық сценарийлері", () => {
         .normalize("NFC");
     for (const [index, text] of [one, two].entries())
       expect(
-        chapters[index].scenes.map((s) => s.paragraphs.join(" ")).join(" "),
+        chapters
+          .find((c) => c.id === ["academy", "fugitive"][index])!
+          .scenes.map((s) => s.paragraphs.join(" "))
+          .join(" "),
       ).toBe(clean(text));
   });
-  it("екі бөлімнің мәтіндері мен аудио шекаралары тұтас", () => {
+  it("үш бөлімнің мәтіндері мен аудио шекаралары тұтас", () => {
     for (const c of chapters) {
       let end = 0;
       for (const s of c.scenes) {
@@ -156,7 +159,7 @@ describe("Кітаптың толық сценарийлері", () => {
     await user.click(screen.getByRole("button", { name: "Бөлімді аяқтау" }));
     expect(loadProgress().finishedChapters).toContain("academy");
   });
-  it("екінші бөлім: аудио шекарасында ойын ашылады, реттеу және толық аяқтау жұмыс істейді", async () => {
+  it("Қашқын академик: аудио шекарасында ойын ашылады, реттеу және толық аяқтау жұмыс істейді", async () => {
     const user = userEvent.setup();
     location.hash = "#/read/fugitive/1";
     render(<App />);
@@ -165,7 +168,7 @@ describe("Кітаптың толық сценарийлері", () => {
       screen.getByRole("button", { name: "Ойнату", exact: true }),
     );
     const segment = (manifest.segments as Record<string, { end: number }>)[
-      chapters[1].scenes[1].id
+      "fugitive-02"
     ];
     media().currentTime = segment.end;
     fireEvent.timeUpdate(media());

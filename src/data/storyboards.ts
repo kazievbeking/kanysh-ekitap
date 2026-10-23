@@ -3,6 +3,7 @@ export type FilmEffect =
   | "wind"
   | "ink"
   | "science"
+  | "assembly"
   | "curtain"
   | "lamplight"
   | "letter"
@@ -17,6 +18,10 @@ export type FilmShot = {
   direction?: number;
 };
 export const imageDescriptions: Record<string, string> = {
+  hospital:
+    "Қаныш пен екі әріптестің ауруханадағы әңгімесі — көркем реконструкция",
+  "auezov-flight":
+    "Мұхтар Әуезовтің студентпен әуежайға келуі — көркем реконструкция",
   academy: "Абай театрының маңындағы ғылыми орта - көркем иллюстрация",
   heritage: "Қаныштың бейнесі, ежелгі тас жазу және даланың символдық көрінісі",
   manuscript: "Ғылыми үстел, ашық дәптер, қалам, кітаптар және жер шары",
@@ -46,8 +51,24 @@ export const storyboards: Record<string, FilmShot[]> = {
   ],
   "academy-02": [
     { at: 0, image: "manuscript", effect: "ink", focus: "48% 65%" },
+    {
+      at: 20,
+      image: "manuscript",
+      effect: "ink",
+      focus: "60% 70%",
+      direction: -1,
+    },
+    { at: 31, image: "scholars", effect: "science", focus: "42% 58%" },
     { at: 43, image: "heritage", effect: "wind", direction: -1 },
     { at: 56, image: "manuscript", effect: "science", focus: "58% 56%" },
+    {
+      at: 73,
+      image: "scholars",
+      effect: "science",
+      focus: "44% 58%",
+      direction: -1,
+    },
+    { at: 85, image: "manuscript", effect: "ink", focus: "62% 65%" },
     { at: 91, image: "scholars", effect: "science", focus: "48% 45%" },
   ],
   "academy-03": [
@@ -69,11 +90,81 @@ export const storyboards: Record<string, FilmShot[]> = {
       focus: "65% 42%",
       direction: -1,
     },
-    { at: 44, image: "ceremony", effect: "curtain", focus: "72% 42%" },
+    { at: 44, image: "ceremony", effect: "assembly", focus: "64% 45%" },
+    {
+      at: 61,
+      image: "ceremony",
+      effect: "assembly",
+      focus: "54% 52%",
+      direction: -1,
+    },
+  ],
+  "protect-01": [
+    { at: 0, image: "scholars", effect: "science", focus: "48% 45%" },
+    { at: 18, image: "manuscript", effect: "ink", focus: "48% 65%" },
+    {
+      at: 36,
+      image: "manuscript",
+      effect: "ink",
+      focus: "65% 60%",
+      direction: -1,
+    },
+    { at: 52, image: "scholars", effect: "science", focus: "44% 52%" },
+  ],
+  "protect-02": [
+    { at: 0, image: "manuscript", effect: "ink", focus: "48% 60%" },
+    {
+      at: 19,
+      image: "manuscript",
+      effect: "lamplight",
+      focus: "62% 65%",
+      direction: -1,
+    },
+    { at: 32, image: "manuscript", effect: "ink", focus: "42% 68%" },
+  ],
+  "protect-03": [
+    { at: 0, image: "hospital", effect: "assembly", focus: "50% 48%" },
+    {
+      at: 22,
+      image: "hospital",
+      effect: "assembly",
+      focus: "64% 47%",
+      direction: -1,
+    },
+    { at: 43, image: "hospital", effect: "assembly", focus: "44% 50%" },
+  ],
+  "protect-04": [
+    { at: 0, image: "hospital", effect: "assembly", focus: "45% 46%" },
+    {
+      at: 11,
+      image: "hospital",
+      effect: "assembly",
+      focus: "58% 49%",
+      direction: -1,
+    },
+  ],
+  "protect-05": [
+    { at: 0, image: "manuscript", effect: "ink", focus: "50% 60%" },
+    { at: 29, image: "auezov-flight", effect: "wind", focus: "45% 48%" },
+    {
+      at: 47,
+      image: "auezov-flight",
+      effect: "sunlight",
+      focus: "65% 48%",
+      direction: -1,
+    },
+    { at: 69, image: "scholars", effect: "science", focus: "48% 48%" },
   ],
   "fugitive-01": [
     { at: 0, image: "evening", effect: "lamplight", focus: "39% 48%" },
     { at: 12, image: "manuscript", effect: "letter", direction: -1 },
+    {
+      at: 26,
+      image: "evening",
+      effect: "lamplight",
+      focus: "33% 61%",
+      direction: -1,
+    },
     { at: 37.8, image: "evening", effect: "lamplight", focus: "42% 40%" },
   ],
   "fugitive-02": [
@@ -96,6 +187,14 @@ export const storyboards: Record<string, FilmShot[]> = {
       focus: "62% 65%",
       direction: -1,
     },
+    { at: 41, image: "evening", effect: "lamplight", focus: "28% 55%" },
+    {
+      at: 53,
+      image: "evening",
+      effect: "lamplight",
+      focus: "65% 55%",
+      direction: -1,
+    },
     { at: 62, image: "station", effect: "departure", focus: "56% 58%" },
     { at: 77, image: "train", effect: "journey", focus: "38% 44%" },
   ],
@@ -109,6 +208,13 @@ export const storyboards: Record<string, FilmShot[]> = {
       direction: -1,
     },
     { at: 27, image: "train", effect: "journey", focus: "45% 48%" },
+    {
+      at: 38,
+      image: "train",
+      effect: "journey",
+      focus: "66% 48%",
+      direction: -1,
+    },
   ],
   "fugitive-05": [
     { at: 0, image: "evening", effect: "lamplight", focus: "48% 47%" },

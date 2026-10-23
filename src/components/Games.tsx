@@ -27,7 +27,8 @@ export function Game({
     [message, setMessage] = useState("");
   const definition = gameDetails[id];
   if (!definition) return <p>Тапсырма табылмады.</p>;
-  const chapter = chapters[definition.chapter];
+  const chapter = chapters.find((c) => c.id === definition.chapter);
+  if (!chapter) return <p>Бөлім табылмады.</p>;
   const onCheck = (ok: boolean) => {
     setSuccess(ok);
     setMessage(ok ? "" : definition.retry);
@@ -66,7 +67,9 @@ export function Game({
         <p className="game-instruction">{definition.instruction}</p>
         {!success ? (
           <>
-            {id === "science-team" ? (
+            {id === "protect-choice" ? (
+              <ProtectChoice onCheck={onCheck} />
+            ) : id === "science-team" ? (
               <ScienceGame hint={hint} onCheck={onCheck} />
             ) : id === "event-chain" ? (
               <SequenceGame onCheck={onCheck} />
@@ -259,6 +262,35 @@ function SequenceGame({ onCheck }: { onCheck: (ok: boolean) => void }) {
         onClick={() => onCheck(order.every((id, i) => id === eventCards[i].id))}
       >
         Ретін тексеру
+        <Icon name="Check" size={17} />
+      </button>
+    </>
+  );
+}
+
+function ProtectChoice({ onCheck }: { onCheck: (ok: boolean) => void }) {
+  const [answer, setAnswer] = useState("");
+  return (
+    <>
+      <fieldset className="fact-options">
+        <legend>Құтқару керек тұлға</legend>
+        {["Мұхтар Әуезов", "Набатов", "Қаныш Сәтбаев"].map((name) => (
+          <button
+            key={name}
+            className={answer === name ? "chosen" : ""}
+            aria-pressed={answer === name}
+            onClick={() => setAnswer(name)}
+          >
+            {name}
+          </button>
+        ))}
+      </fieldset>
+      <button
+        className="button primary"
+        disabled={!answer}
+        onClick={() => onCheck(answer === "Мұхтар Әуезов")}
+      >
+        Жауапты тексеру
         <Icon name="Check" size={17} />
       </button>
     </>

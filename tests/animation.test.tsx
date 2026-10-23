@@ -34,8 +34,10 @@ it("ойын мәзірі ашылса кеш жүктелген аудио өз
   expect(stage().getAttribute("data-playing")).toBe("false");
 });
 
-it("екі бөлімдегі тоғыз көріністе аудио ұзақтығына сай толық раскадровка бар", () => {
-  expect(Object.keys(storyboards)).toHaveLength(9);
+it("үш бөлімдегі барлық көріністе аудио ұзақтығына сай толық раскадровка бар", () => {
+  expect(Object.keys(storyboards)).toHaveLength(
+    chapters.reduce((sum, c) => sum + c.scenes.length, 0),
+  );
   for (const chapter of chapters)
     for (const scene of chapter.scenes) {
       const shots = storyboards[scene.id];

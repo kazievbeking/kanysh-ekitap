@@ -16,6 +16,11 @@ it("академияның екінші көрінісінде 15 секундт
 it("кадр ауысуында тек көршілес екі сурет қабаттасады", () => {
   const shots = storyboards["academy-02"];
   const frames = shots.map((_, i) => filmFrame(shots, i, 43.5, 100));
-  expect(frames.map((f) => f.visible)).toEqual([true, true, false, false]);
-  expect(frames.map((f) => f.opacity)).toEqual([1, 0.5, 0, 0]);
+  const incoming = shots.findIndex((s) => s.at === 43);
+  frames.forEach((frame, index) => {
+    expect(frame.visible).toBe(index === incoming || index === incoming - 1);
+    expect(frame.opacity).toBe(
+      index === incoming ? 0.5 : index === incoming - 1 ? 1 : 0,
+    );
+  });
 });

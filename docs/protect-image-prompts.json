@@ -1,0 +1,14 @@
+[
+  {
+    "asset": "hospital",
+    "prompt": "Create a single widescreen 16:9 painterly historical book illustration, warm muted sepia, forest green shadows, copper light, Kazakhstan early 1950s. Kanysh Satbayev, dignified Kazakh scientist in his early fifties with broad round face, thick wavy black hair combed back, full eyebrows, wearing a simple white hospital shirt, sits upright on a modest hospital bed. Two Kazakh male colleagues in dark period suits visit at his bedside, in a serious respectful conversation about protecting fellow scholars. Restrained expression, no melodrama, no medical procedures. Bedside table with folded paper, softly lit window and curtain, period furniture. Wide balanced composition with all figures visible, no text, no logos. Oil painting texture, realistic anatomy, consistent warm visual style with an illustrated historical biography. Symbolic reenactment, not documentary photograph.",
+    "original": "materials/illustrations/hospital.png",
+    "web": "public/images/hospital.webp"
+  },
+  {
+    "asset": "auezov-flight",
+    "prompt": "Create a single widescreen 16:9 painterly historical book illustration in warm muted sepia, copper highlights and forest green shadows. Kazakhstan, early 1950s: a respected middle aged Kazakh writer with receding short dark hair, broad thoughtful face and a dark overcoat, carrying a brown leather briefcase, is discreetly accompanied by a young male student in a period jacket toward a small 1950s passenger propeller airplane on an airfield. Quiet urgency, restrained natural gestures, no weapons, no police. Terminal and distant mountains in the background. The plane is on the ground, suitable period design without readable markings. Broad cinematic composition, characters left of center, plane to right. Detailed oil painting texture, realistic anatomy, historical biography illustration, no text, no logos, no collage. This is an artistic reconstruction of Mukhtar Auezov's departure for Moscow.",
+    "original": "materials/illustrations/auezov-flight.png",
+    "web": "public/images/auezov-flight.webp"
+  }
+]
