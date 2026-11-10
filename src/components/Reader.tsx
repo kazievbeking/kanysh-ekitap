@@ -8,6 +8,7 @@ import { Icon } from "./Icon";
 import { Modal } from "./Modal";
 import { Game } from "./Games";
 import { gameDetails } from "../data/games";
+import "./reader-text.css";
 export function Reader({
   chapter,
   index,
@@ -71,14 +72,17 @@ export function Reader({
       setGame(scene.gameAfter);
       return;
     }
-    if (index < chapter.scenes.length - 1)
-      move(index + 1, fromAudio || !!audio.current?.isPlaying());
+    advance(fromAudio || !!audio.current?.isPlaying());
+  }
+  function advance(play = false) {
+    if (index < chapter.scenes.length - 1) move(index + 1, play);
     else {
       audio.current?.pause();
       setEnded(true);
       onFinish();
     }
   }
+
   return (
     <section className="reader cinema-reader">
       <div className="reader-toolbar">
@@ -176,6 +180,28 @@ export function Reader({
           </button>
         </div>
       </div>
+      <article
+        className="reader-text paper-page text-page"
+        key={`text-${scene.id}`}
+        aria-labelledby={`text-${scene.id}`}
+      >
+        <header className="reader-text-heading">
+          <span className="small-label">
+            <Icon name="BookOpen" size={17} />
+            КІТАП МӘТІНІ · {chapter.pages}-беттер
+          </span>
+          <h2 id={`text-${scene.id}`}>{scene.title}</h2>
+        </header>
+        <div className="text-scroll">
+          {scene.paragraphs.map((paragraph, i) => (
+            <p key={i}>{paragraph}</p>
+          ))}
+        </div>
+        <footer className="reader-text-source">
+          «Қаныш және ғылыми майдан» · {chapter.title} · {index + 1} /{" "}
+          {chapter.scenes.length}
+        </footer>
+      </article>
       {game && (
         <Modal
           title="ОЙЛАНУ СӘТІ"
@@ -194,7 +220,7 @@ export function Reader({
             onContinue={() => {
               onCompleteGame(game);
               setGame(null);
-              if (gameAdvance.current) move(index + 1, resume.current);
+              if (gameAdvance.current) advance(resume.current);
               else if (resume.current) audio.current?.play();
             }}
           />

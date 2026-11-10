@@ -41,7 +41,10 @@ for (const route of [
   dom.window.eval(code);
   await new Promise((resolve) => setTimeout(resolve, 250));
   const doc = dom.window.document;
-  if (!doc.querySelector(".film-stage") || doc.querySelector(".text-page"))
+  if (
+    !doc.querySelector(".film-stage") ||
+    !doc.querySelector(".reader-text .text-scroll p")
+  )
     throw new Error("Анимациялық көрсетілім ашылмады: " + route);
   if (doc.querySelectorAll(".film-shot").length < 2)
     throw new Error("Жоспарлар жетіспейді");
@@ -50,7 +53,7 @@ for (const route of [
   if (errors.length) throw new Error(errors.join("\n"));
   console.log(
     route,
-    "анимациялық сахна көрсетілді, мәтін панелі жоқ, JavaScript қатесі жоқ",
+    "анимациялық сахна көрсетілді, кітап мәтіні көрсетілді, JavaScript қатесі жоқ",
   );
   dom.window.close();
 }

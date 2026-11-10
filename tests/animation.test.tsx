@@ -55,16 +55,20 @@ it("үш бөлімдегі барлық көріністе аудио ұзақ�
     }
 });
 
-it("барлық көріністе мәтін панелі орнына анимациялық сахна көрсетіледі", () => {
+it("барлық көріністе анимация мен толық кітап мәтіні бірге көрсетіледі", () => {
   for (const chapter of chapters)
     for (let i = 0; i < chapter.scenes.length; i++) {
       location.hash = `#/read/${chapter.id}/${i}`;
       const view = render(<App />);
       expect(stage()).toBeTruthy();
-      expect(document.querySelector(".text-page")).toBeNull();
+      expect(document.querySelector(".reader-text")).toBeTruthy();
       expect(screen.queryByRole("button", { name: "Мәтінді оқу" })).toBeNull();
-      expect(document.querySelector(".reader")?.textContent).not.toContain(
-        chapter.scenes[i].paragraphs[0],
+      for (const paragraph of chapter.scenes[i].paragraphs)
+        expect(
+          document.querySelector(".reader-text .text-scroll")?.textContent,
+        ).toContain(paragraph);
+      expect(document.querySelector(".reader-text")?.textContent).toContain(
+        chapter.pages,
       );
       expect(document.querySelectorAll(".film-shot").length).toBe(
         storyboards[chapter.scenes[i].id].length,

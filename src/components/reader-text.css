@@ -1,0 +1,65 @@
+﻿/* Keep the illustration full width; reading uses the natural page scroll. */
+.reader .reader-text {
+  margin: 26px 0 0;
+  padding: 38px clamp(22px, 7vw, 100px) 30px;
+  border: 1px solid #d9d1bd;
+  border-radius: 4px;
+  overflow: visible;
+  display: block;
+}
+.reader-text-heading,
+.reader-text .text-scroll,
+.reader-text-source {
+  max-width: 790px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.reader-text-heading .small-label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #8a785e;
+  line-height: 1.8;
+  letter-spacing: 1px;
+  font-size: 10px;
+}
+.reader-text-heading h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  color: #344439;
+  font-size: clamp(23px, 3vw, 32px);
+  line-height: 1.5;
+  margin: 16px 0 26px;
+}
+.reader .reader-text .text-scroll {
+  overflow: visible;
+  padding: 0;
+}
+.reader .reader-text .text-scroll p {
+  font-size: 17px;
+  line-height: 2;
+  color: #42463c;
+  margin: 0 0 24px;
+  overflow-wrap: anywhere;
+}
+.reader-text-source {
+  padding-top: 20px;
+  border-top: 1px solid #ded6c4;
+  font-size: 11px;
+  line-height: 1.8;
+  color: #807d6e;
+}
+@media (max-width: 760px) {
+  .reader .reader-text {
+    margin-top: 18px;
+    padding: 28px 22px;
+  }
+  .reader .reader-text .text-scroll p {
+    font-size: 16px;
+    line-height: 1.95;
+  }
+  .reader-text-heading .small-label {
+    font-size: 9px;
+    letter-spacing: 0.6px;
+  }
+}

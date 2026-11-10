@@ -80,5 +80,80 @@ it("жаңа тапсырма дұрыс жауапты тексеріп, соң
   fireEvent.loadedMetadata(last);
   expect(last.currentTime).toBe(manifest.segments["protect-05"].start);
   await user.click(screen.getByRole("button", { name: "Бөлімді аяқтау" }));
+  const finalTask = screen.getByRole("dialog", { name: "ОЙЛАНУ СӘТІ" });
+  await solveRescue(user, finalTask);
+  expect(loadProgress().completedGames).toContain("protect-sequence");
   expect(loadProgress().finishedChapters).toContain("protect");
+  expect(screen.getByRole("dialog", { name: "БӨЛІМ АЯҚТАЛДЫ" })).toBeTruthy();
+});
+
+async function solveRescue(
+  user: ReturnType<typeof userEvent.setup>,
+  dialog: HTMLElement,
+) {
+  await user.click(
+    within(dialog).getByRole("button", {
+      name: "Әуезовті құрықтау жоспары: жоғары жылжыту",
+    }),
+  );
+  await user.click(
+    within(dialog).getByRole("button", {
+      name: "Студенттің әуежайға жеткізуі: жоғары жылжыту",
+    }),
+  );
+  await user.click(
+    within(dialog).getByRole("button", {
+      name: "Студенттің әуежайға жеткізуі: жоғары жылжыту",
+    }),
+  );
+  await user.click(
+    within(dialog).getByRole("button", { name: "Ретін тексеру" }),
+  );
+  await user.click(
+    within(dialog).getByRole("button", { name: "Әңгімені жалғастыру" }),
+  );
+}
+it("екінші тапсырма аудионы тоқтатып, қате ретті қабылдамайды және бөлімді аяқтайды", async () => {
+  const user = userEvent.setup();
+  location.hash = "#/read/protect/4";
+  render(<App />);
+  const audio = document.querySelector<HTMLAudioElement>(
+    "audio:not([data-background-music])",
+  )!;
+  fireEvent.loadedMetadata(audio);
+  await user.click(screen.getByRole("button", { name: "Ойнату", exact: true }));
+  audio.currentTime = manifest.segments["protect-05"].end;
+  fireEvent.timeUpdate(audio);
+  expect(audio.paused).toBe(true);
+  const dialog = screen.getByRole("dialog", { name: "ОЙЛАНУ СӘТІ" });
+  expect(dialog.textContent).toContain("Әуезовті құтқару жолы");
+  expect(dialog.textContent).toContain("болуы мүмкін");
+  await user.click(
+    within(dialog).getByRole("button", { name: "Ретін тексеру" }),
+  );
+  expect(within(dialog).queryByText("Керемет, шешім табылды!")).toBeNull();
+  expect(dialog.textContent).toContain(
+    "Оқиғалар ретін соңғы үзіндімен салыстырып көріңіз.",
+  );
+  await solveRescue(user, dialog);
+  expect(loadProgress().finishedChapters).toContain("protect");
+  expect(location.hash).toBe("#/read/protect/4");
+});
+it("жаңа бөлімнің тапсырма мәзірінде екі ойын бар", async () => {
+  const user = userEvent.setup();
+  location.hash = "#/read/protect/0";
+  render(<App />);
+  await user.click(
+    screen.getByRole("button", { name: "Тапсырмалар", exact: true }),
+  );
+  const dialog = screen.getByRole("dialog", { name: "БӨЛІМ ТАПСЫРМАЛАРЫ" });
+  expect(dialog.querySelectorAll(".task-card").length).toBe(2);
+  await user.click(
+    within(dialog).getByRole("button", { name: /Әуезовті құтқару жолы/ }),
+  );
+  const game = screen.getByRole("dialog", { name: "ОЙЛАНУ СӘТІ" });
+  await solveRescue(user, game);
+  expect(location.hash).toBe("#/read/protect/0");
+  expect(loadProgress().completedGames).toContain("protect-sequence");
+  expect(loadProgress().finishedChapters).not.toContain("protect");
 });

@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { scienceCards, fields, eventCards, gameDetails } from "../data/games";
+import {
+  scienceCards,
+  fields,
+  eventCards,
+  rescueEvents,
+  gameDetails,
+} from "../data/games";
 import { chapters } from "../data/book";
 import { Icon } from "./Icon";
 import type { IconName } from "./Icon";
@@ -67,7 +73,9 @@ export function Game({
         <p className="game-instruction">{definition.instruction}</p>
         {!success ? (
           <>
-            {id === "protect-choice" ? (
+            {id === "protect-sequence" ? (
+              <SequenceGame cards={rescueEvents} onCheck={onCheck} />
+            ) : id === "protect-choice" ? (
               <ProtectChoice onCheck={onCheck} />
             ) : id === "science-team" ? (
               <ScienceGame hint={hint} onCheck={onCheck} />
@@ -192,8 +200,19 @@ function ScienceGame({
     </>
   );
 }
-function SequenceGame({ onCheck }: { onCheck: (ok: boolean) => void }) {
-  const [order, setOrder] = useState(["packing", "warning", "train", "ticket"]);
+function SequenceGame({
+  onCheck,
+  cards = eventCards,
+}: {
+  onCheck: (ok: boolean) => void;
+  cards?: typeof eventCards;
+}) {
+  const [order, setOrder] = useState(() => [
+    cards[2].id,
+    cards[0].id,
+    cards[3].id,
+    cards[1].id,
+  ]);
   function move(from: number, to: number) {
     if (to < 0 || to >= order.length) return;
     setOrder((p) => {
@@ -205,19 +224,21 @@ function SequenceGame({ onCheck }: { onCheck: (ok: boolean) => void }) {
   }
   return (
     <>
-      <div className="logical-rules">
-        <strong>Ойынның логикалық шарттары</strong>
-        <p>
-          Билет хабардан кейін алынады. Дайындық билеттен кейін аяқталады.
-          Пойызға дайындықтан соң отырады.
-        </p>
-        <small>
-          Бұл шарттар — ойын моделі, кітаптан алынған сөзбе-сөз дерек емес.
-        </small>
-      </div>
+      {cards === eventCards && (
+        <div className="logical-rules">
+          <strong>Ойынның логикалық шарттары</strong>
+          <p>
+            Билет хабардан кейін алынады. Дайындық билеттен кейін аяқталады.
+            Пойызға дайындықтан соң отырады.
+          </p>
+          <small>
+            Бұл шарттар — ойын моделі, кітаптан алынған сөзбе-сөз дерек емес.
+          </small>
+        </div>
+      )}
       <ol className="sequence-cards">
         {order.map((id, i) => {
-          const c = eventCards.find((c) => c.id === id)!;
+          const c = cards.find((c) => c.id === id)!;
           return (
             <li
               key={id}
@@ -246,7 +267,7 @@ function SequenceGame({ onCheck }: { onCheck: (ok: boolean) => void }) {
                 </button>
                 <button
                   className="icon-button"
-                  disabled={i === 3}
+                  disabled={i === order.length - 1}
                   aria-label={`${c.text}: төмен жылжыту`}
                   onClick={() => move(i, i + 1)}
                 >
@@ -259,7 +280,7 @@ function SequenceGame({ onCheck }: { onCheck: (ok: boolean) => void }) {
       </ol>
       <button
         className="button primary"
-        onClick={() => onCheck(order.every((id, i) => id === eventCards[i].id))}
+        onClick={() => onCheck(order.every((id, i) => id === cards[i].id))}
       >
         Ретін тексеру
         <Icon name="Check" size={17} />
