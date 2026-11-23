@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { asset } from "../data/book";
+import { asset, chapters } from "../data/book";
 import { Icon } from "./Icon";
 export function Cover({
   onOpen,
@@ -26,9 +26,9 @@ export function Cover({
           ЦИФРЛЫҚ КІТАПХАНА · 01
         </span>
         <h1>
-          Бір ғұмыр. <br />
+          Бір ғұмыр - <br />
           Бір ұлттың <br />
-          <em>ғылыми майданы.</em>
+          <em>ғылыми майданы</em>
         </h1>
         <p>
           Қаныш Сәтбаевтың әлеміне қадам басыңыз. Әңгімені тыңдап, анимациялық
@@ -50,7 +50,8 @@ export function Cover({
             Аудиокітап
           </span>
           <span>
-            <Icon name="BookOpen" size={17} />2 бөлім
+            <Icon name="BookOpen" size={17} />
+            {chapters.length} бөлім
           </span>
           <span>
             <Icon name="Lightbulb" size={17} />
