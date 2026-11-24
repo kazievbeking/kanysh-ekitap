@@ -146,7 +146,7 @@ it("келесі көрініске өткенде алдыңғы бейне т�
   expect(videos()[0].src).toContain("clip-4.mp4");
 });
 
-it("бейне мен мәтін бір кітаптың сол және оң беттерінде орналасады", () => {
+it("мөлдір мәтін панелі бейненің оң жағын жауып, толық кадрды сақтайды", () => {
   const css = document.createElement("style");
   css.textContent = readFileSync("src/components/reader-text.css", "utf8");
   document.head.append(css);
@@ -158,7 +158,12 @@ it("бейне мен мәтін бір кітаптың сол және оң б
       expect(book.children).toHaveLength(2);
       expect(book.children[0].matches(".video-stage")).toBe(true);
       expect(book.children[1].matches(".reader-text")).toBe(true);
-      expect(getComputedStyle(book).display).toBe("grid");
+      expect(getComputedStyle(book).display).toBe("block");
+      const panel = getComputedStyle(book.children[1]);
+      expect(panel.position).toBe("absolute");
+      expect(panel.width).toBe("42%");
+      expect(panel.backgroundColor).toBe("rgba(17, 29, 23, 0.52)");
+      expect(panel.zIndex).toBe("4");
       expect(view.container.querySelectorAll(".reader-text")).toHaveLength(1);
       expect(
         view.container

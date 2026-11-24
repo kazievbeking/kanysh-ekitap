@@ -64,81 +64,143 @@
   }
 }
 
-/* Video chapters restore the facing-page reading layout. */
+/* The reading panel overlays the video without shrinking its frame. */
 .reader.video-reader .reader-book {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 1fr);
-  height: clamp(440px, 62vh, 650px);
+  display: block;
+  position: relative;
+  height: auto;
   overflow: hidden;
-  align-items: stretch;
+  isolation: isolate;
 }
 .video-reader .reader-book > .film-stage.video-stage {
-  height: 100%;
-  min-width: 0;
-  min-height: 0;
-  aspect-ratio: auto;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
 }
 .reader.video-reader .reader-book > .reader-text {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: 4;
+  width: 42%;
+  height: 100%;
   margin: 0;
-  padding: 30px 30px 22px;
+  padding: 26px 28px 20px;
   border: 0;
-  border-left: 1px solid #d9d1bd;
+  border-left: 1px solid #f2e5c52b;
   border-radius: 0;
   min-width: 0;
   min-height: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background: rgba(17, 29, 23, 0.52);
+  color: #fff3dc;
+  text-shadow: 0 1px 3px #0009;
 }
 .video-reader .reader-text-heading,
 .video-reader .reader-text-source {
   width: 100%;
   flex-shrink: 0;
 }
+.video-reader .reader-text-heading .small-label {
+  color: #e4cba3;
+  font-size: 9px;
+  letter-spacing: 0.7px;
+}
 .video-reader .reader-text-heading h2 {
-  font-size: 24px;
-  margin: 13px 0 19px;
+  font-size: 23px;
+  margin: 12px 0 18px;
+  color: #fff3dc;
 }
 .reader.video-reader .reader-text .text-scroll {
   overflow-y: auto;
   min-height: 0;
   flex: 1;
   width: 100%;
-  padding-right: 12px;
+  padding-right: 10px;
   overscroll-behavior: contain;
   scrollbar-gutter: stable;
+  scrollbar-color: #e0c39688 transparent;
 }
 .reader.video-reader .reader-text .text-scroll p {
   font-size: 15px;
-  line-height: 1.95;
+  line-height: 1.9;
   margin-bottom: 20px;
+  color: #fff3dc;
+}
+.video-reader .reader-text .text-scroll p:first-child:first-letter {
+  color: #e6c293;
 }
 .video-reader .reader-text-source {
   font-size: 10px;
   padding-top: 12px;
   margin-top: 12px;
+  color: #eedcc0;
+  border-top-color: #f2e5c535;
+}
+.video-reader .video-stage .film-start {
+  width: 58%;
+  right: auto;
+}
+.video-reader .video-stage .film-art-note {
+  left: 16px;
+  right: auto;
 }
 @media (max-width: 950px) {
-  .reader.video-reader .reader-book {
-    grid-template-columns: minmax(0, 1fr);
-    height: auto;
-  }
-  .video-reader .reader-book > .film-stage.video-stage {
-    height: auto;
-    aspect-ratio: 16 / 9;
-  }
   .reader.video-reader .reader-book > .reader-text {
-    padding: 28px 24px;
-    border-left: 0;
-    border-top: 1px solid #d9d1bd;
-    overflow: visible;
+    width: 48%;
+    padding: 20px;
   }
-  .reader.video-reader .reader-text .text-scroll {
-    overflow: visible;
-    padding: 0;
-    flex: none;
+  .video-reader .reader-text-heading h2 {
+    font-size: 19px;
+    margin: 9px 0 12px;
   }
   .reader.video-reader .reader-text .text-scroll p {
-    font-size: 16px;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .video-reader .reader-text-source {
+    display: none;
+  }
+  .video-reader .video-stage .film-start {
+    width: 52%;
+  }
+}
+@media (max-width: 600px) {
+  .reader.video-reader .reader-book > .reader-text {
+    width: 58%;
+    padding: 12px 10px;
+  }
+  .video-reader .reader-text-heading .small-label {
+    font-size: 7px;
+    letter-spacing: 0;
+    gap: 4px;
+  }
+  .video-reader .reader-text-heading .small-label svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+  .video-reader .reader-text-heading h2 {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 6px 0 9px;
+  }
+  .reader.video-reader .reader-text .text-scroll {
+    padding-right: 4px;
+    scrollbar-gutter: auto;
+  }
+  .reader.video-reader .reader-text .text-scroll p {
+    font-size: 13px;
+    line-height: 1.75;
+    margin-bottom: 12px;
+  }
+  .video-reader .reader-text .text-scroll p:first-child:first-letter {
+    font-size: 30px;
+    padding-top: 5px;
+    padding-right: 4px;
+  }
+  .video-reader .video-stage .film-start {
+    width: 42%;
   }
 }
