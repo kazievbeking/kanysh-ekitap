@@ -3,7 +3,8 @@ import { it, expect, vi } from "vitest";
 import { LivingIllustration } from "../src/components/LivingIllustration";
 import { handPose, usesLivingIllustration } from "../src/data/academyMotion";
 import { storyboards } from "../src/data/storyboards";
-import { App } from "../src/App";
+import { AnimatedStory } from "../src/components/AnimatedStory";
+import { chapters } from "../src/data/book";
 
 it("қол қимылы шағын, қайталанатын және тиісті суреттермен шектелген", () => {
   for (const image of ["ceremony", "scholars"]) {
@@ -24,8 +25,17 @@ it("қол қимылы шағын, қайталанатын және тиіст
 });
 
 it("GPU болмаса бастапқы сурет сақталып, бос кенеп көрсетілмейді", () => {
-  location.hash = "#/read/fugitive/0";
-  const view = render(<App />);
+  const view = render(
+    <AnimatedStory
+      scene={chapters.find((c) => c.id === "fugitive")!.scenes[0]}
+      duration={50.79}
+      elapsed={0}
+      playing={false}
+      blocked={false}
+      getElapsed={() => 0}
+      onPlay={() => {}}
+    />,
+  );
   expect(
     view.container.querySelector(".film-backdrop")?.getAttribute("src"),
   ).toContain("evening.webp");

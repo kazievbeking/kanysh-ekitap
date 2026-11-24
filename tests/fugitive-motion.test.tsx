@@ -3,7 +3,8 @@ import { it, expect } from "vitest";
 import { App } from "../src/App";
 import { fugitiveHandPose } from "../src/data/fugitiveMotion";
 import { illustrationCrop } from "../src/data/illustrationCrop";
-import { storyboards } from "../src/data/storyboards";
+import { fugitiveVideos } from "../src/data/academyVideos";
+import { existsSync } from "node:fs";
 import manifest from "../src/data/audio-manifest.json";
 
 it("екінші бөлімде қол қимылы шағын, беттер мен жасырын қолдар өзгермейді", () => {
@@ -22,13 +23,27 @@ it("барлық бес көріністе қозғалыс бар және ке
   for (let index = 0; index < 5; index++) {
     location.hash = `#/read/fugitive/${index}`;
     const view = render(<App />);
-    expect(view.container.querySelectorAll(".fugitive-details").length).toBe(
-      storyboards[`fugitive-0${index + 1}`].length,
-    );
+    const clip = fugitiveVideos[`fugitive-0${index + 1}`][0];
+    expect(clip.file).toBe(`video/fugitive/clip-${index + 1}.mp4`);
+    expect(existsSync(`public/${clip.file}`)).toBe(true);
+    expect(existsSync(`public/${clip.poster}`)).toBe(true);
+    const video =
+      view.container.querySelector<HTMLVideoElement>("video.story-video")!;
+    expect(video.getAttribute("src")).toContain(clip.file);
+    expect(
+      view.container.querySelector(".reader-book > .reader-text"),
+    ).toBeTruthy();
+    expect(view.container.querySelector(".film-backdrop")).toBeNull();
     const audio = view.container.querySelector<HTMLAudioElement>(
       "audio:not([data-background-music])",
     )!;
     fireEvent.loadedMetadata(audio);
+    Object.defineProperty(video, "readyState", {
+      configurable: true,
+      value: 4,
+    });
+    Object.defineProperty(video, "duration", { configurable: true, value: 10 });
+    fireEvent.loadedMetadata(video);
     const start = (manifest.segments as Record<string, { start: number }>)[
       `fugitive-0${index + 1}`
     ].start;
@@ -36,10 +51,14 @@ it("барлық бес көріністе қозғалыс бар және ке
     fireEvent.timeUpdate(audio);
     const stage = view.container.querySelector<HTMLElement>(".film-stage")!;
     expect(Number(stage.style.getPropertyValue("--elapsed"))).toBeCloseTo(15);
+    expect(video.currentTime).toBeCloseTo(5);
+    expect(video.muted).toBe(true);
     audio.currentTime = start + 2;
     fireEvent.timeUpdate(audio);
     expect(Number(stage.style.getPropertyValue("--elapsed"))).toBeCloseTo(2);
     expect(stage.dataset.playing).toBe("false");
+    expect(video.currentTime).toBeCloseTo(2);
+    expect(video.paused).toBe(true);
     view.unmount();
   }
 });

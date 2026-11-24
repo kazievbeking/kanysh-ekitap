@@ -49,3 +49,9 @@ for (const id of [1, 2, 3, 4, 5]) {
   await access(`public/video/protect/clip-${id}.jpg`);
 }
 console.log("Екінші бөлімнің бес бейнекөрінісі мен постерлері бар.");
+
+for (const id of [1, 2, 3, 4, 5]) {
+  await access(`public/video/fugitive/clip-${id}.mp4`);
+  await access(`public/video/fugitive/clip-${id}.jpg`);
+}
+console.log("Үшінші бөлімнің бес MP4 бейнесі мен постерлері бар.");

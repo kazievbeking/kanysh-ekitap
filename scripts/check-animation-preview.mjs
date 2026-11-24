@@ -47,13 +47,10 @@ for (const route of [
   )
     throw new Error("Анимациялық көрсетілім ашылмады: " + route);
   if (
-    !route.includes("fugitive")
-      ? !doc.querySelector(".story-video")
-      : doc.querySelectorAll(".film-shot").length < 2
+    !doc.querySelector(".video-stage .story-video") ||
+    !doc.querySelector(".reader-book > .reader-text")
   )
-    throw new Error("Жоспарлар жетіспейді");
-  if (route.includes("fugitive") && !doc.querySelector(".fugitive-details"))
-    throw new Error("Екінші бөлімнің қозғалыс қабаты жоқ");
+    throw new Error("Бейне мен мөлдір мәтін панелі табылмады: " + route);
   if (errors.length) throw new Error(errors.join("\n"));
   console.log(
     route,

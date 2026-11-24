@@ -35,4 +35,20 @@ export const protectVideos: Record<string, VideoClip[]> = {
   // clip-5 is a deterministic camera move made from that portrait.
   "protect-05": [protectClip(5, 85)],
 };
-export const sceneVideos = { ...academyVideos, ...protectVideos };
+const fugitiveClip = (id: number): VideoClip => ({
+  file: `video/fugitive/clip-${id}.mp4`,
+  duration: 10,
+  poster: `video/fugitive/clip-${id}.jpg`,
+});
+export const fugitiveVideos: Record<string, VideoClip[]> = {
+  "fugitive-01": [fugitiveClip(1)],
+  "fugitive-02": [fugitiveClip(2)],
+  "fugitive-03": [fugitiveClip(3)],
+  "fugitive-04": [fugitiveClip(4)],
+  "fugitive-05": [fugitiveClip(5)],
+};
+export const sceneVideos = {
+  ...academyVideos,
+  ...protectVideos,
+  ...fugitiveVideos,
+};
