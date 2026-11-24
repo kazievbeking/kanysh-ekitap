@@ -1,7 +1,7 @@
 ﻿import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { asset } from "../data/book";
-import { academyVideos, videoFrame } from "../data/academyVideos";
+import { sceneVideos, videoFrame } from "../data/academyVideos";
 import type { Scene } from "../types";
 import { Icon } from "./Icon";
 import "./video-story.css";
@@ -25,7 +25,7 @@ export function VideoStory({
   onPlay: () => void;
   reducedMotion?: boolean;
 }) {
-  const clips = academyVideos[scene.id];
+  const clips = sceneVideos[scene.id];
   const videos = useRef<(HTMLVideoElement | null)[]>([]);
   const videoRefs = useMemo(
     () =>

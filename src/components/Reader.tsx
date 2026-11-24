@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Chapter, Progress, AudioSegment } from "../types";
 import { VideoStory } from "./VideoStory";
-import { academyVideos } from "../data/academyVideos";
+import { sceneVideos } from "../data/academyVideos";
 import { AnimatedStory } from "./AnimatedStory";
 import manifest from "../data/audio-manifest.json";
 import { AudioControls } from "./AudioControls";
@@ -43,7 +43,7 @@ export function Reader({
     [autoPlay, setAutoPlay] = useState(false),
     [ended, setEnded] = useState(false),
     [taskList, setTaskList] = useState(false);
-  const Story = academyVideos[scene.id] ? VideoStory : AnimatedStory;
+  const Story = sceneVideos[scene.id] ? VideoStory : AnimatedStory;
   const segment = (manifest.segments as Record<string, AudioSegment>)[scene.id];
   const getElapsed = useCallback(
     () =>
@@ -118,7 +118,7 @@ export function Reader({
 
   return (
     <section
-      className={`reader cinema-reader ${academyVideos[scene.id] ? "video-reader" : ""}`}
+      className={`reader cinema-reader ${sceneVideos[scene.id] ? "video-reader" : ""}`}
     >
       <div className="reader-toolbar">
         <button className="text-button" onClick={onContents}>
@@ -154,7 +154,7 @@ export function Reader({
           getElapsed={getElapsed}
           onPlay={() => audio.current?.play()}
         />
-        {academyVideos[scene.id] && bookText}
+        {sceneVideos[scene.id] && bookText}
       </div>
       <div className="reader-bottom">
         <AudioControls
@@ -217,7 +217,7 @@ export function Reader({
           </button>
         </div>
       </div>
-      {!academyVideos[scene.id] && bookText}
+      {!sceneVideos[scene.id] && bookText}
       {game && (
         <Modal
           title="ОЙЛАНУ СӘТІ"

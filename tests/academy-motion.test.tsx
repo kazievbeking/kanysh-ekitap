@@ -24,14 +24,14 @@ it("қол қимылы шағын, қайталанатын және тиіст
 });
 
 it("GPU болмаса бастапқы сурет сақталып, бос кенеп көрсетілмейді", () => {
-  location.hash = "#/read/protect/2";
+  location.hash = "#/read/fugitive/0";
   const view = render(<App />);
   expect(
     view.container.querySelector(".film-backdrop")?.getAttribute("src"),
-  ).toContain("hospital.webp");
+  ).toContain("evening.webp");
   expect(view.container.querySelector("canvas[data-ready]")).toBeNull();
-  expect(view.container.querySelectorAll(".protect-atmosphere").length).toBe(
-    storyboards["protect-03"].length,
+  expect(view.container.querySelectorAll(".fugitive-details").length).toBe(
+    storyboards["fugitive-01"].length,
   );
 });
 

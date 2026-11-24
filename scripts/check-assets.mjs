@@ -43,3 +43,9 @@ for (const id of [1, 2, 3, 4, 5]) {
   await access(`public/video/academy/clip-${id}.jpg`);
 }
 console.log("Академия бөлімінің бес MP4 бейнесі мен постерлері бар.");
+
+for (const id of [1, 2, 3, 4, 5]) {
+  await access(`public/video/protect/clip-${id}.mp4`);
+  await access(`public/video/protect/clip-${id}.jpg`);
+}
+console.log("Екінші бөлімнің бес бейнекөрінісі мен постерлері бар.");

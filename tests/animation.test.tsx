@@ -11,7 +11,7 @@ import { existsSync } from "node:fs";
 import { App } from "../src/App";
 import { chapters } from "../src/data/book";
 import { storyboards, shotAt } from "../src/data/storyboards";
-import { academyVideos } from "../src/data/academyVideos";
+import { sceneVideos as academyVideos } from "../src/data/academyVideos";
 import manifest from "../src/data/audio-manifest.json";
 import { freshProgress, STORAGE_KEY } from "../src/progress";
 import type { AudioSegment } from "../src/types";
@@ -92,7 +92,7 @@ it("аудионы алға және артқа жылжыту тиісті ан
   await user.click(screen.getByRole("button", { name: "Ойнату", exact: true }));
   narration().currentTime = 23;
   fireEvent.timeUpdate(narration());
-  expect(stage().getAttribute("data-shot")).toBe("1");
+  expect(stage().getAttribute("data-shot")).toBe("0");
   expect(Number(stage().style.getPropertyValue("--elapsed"))).toBe(23);
   await user.click(
     screen.getByRole("button", { name: "Кідірту", exact: true }),
@@ -102,7 +102,7 @@ it("аудионы алға және артқа жылжыту тиісті ан
     screen.getByRole("slider", { name: "Көріністегі аудио уақыты" }),
     { target: { value: "37" } },
   );
-  expect(stage().getAttribute("data-shot")).toBe("2");
+  expect(stage().getAttribute("data-shot")).toBe("0");
   fireEvent.change(
     screen.getByRole("slider", { name: "Көріністегі аудио уақыты" }),
     { target: { value: "5" } },
@@ -132,7 +132,7 @@ it("анимация кадры таймерден емес нақты ауди�
     narration().currentTime = 24.75;
     act(() => callback!(performance.now()));
     expect(Number(stage().style.getPropertyValue("--elapsed"))).toBe(24.75);
-    expect(stage().getAttribute("data-shot")).toBe("1");
+    expect(stage().getAttribute("data-shot")).toBe("0");
     await user.click(
       screen.getByRole("button", { name: "Кідірту", exact: true }),
     );
@@ -169,6 +169,6 @@ it("сақталған аудио уақытынан ашылғанда бұры
   render(<App />);
   fireEvent.loadedMetadata(narration());
   expect(narration().currentTime).toBe(23);
-  expect(stage().getAttribute("data-shot")).toBe("1");
+  expect(stage().getAttribute("data-shot")).toBe("0");
   expect(stage().getAttribute("data-playing")).toBe("false");
 });

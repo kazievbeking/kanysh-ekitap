@@ -47,7 +47,7 @@ for (const route of [
   )
     throw new Error("Анимациялық көрсетілім ашылмады: " + route);
   if (
-    route.includes("academy")
+    !route.includes("fugitive")
       ? !doc.querySelector(".story-video")
       : doc.querySelectorAll(".film-shot").length < 2
   )
