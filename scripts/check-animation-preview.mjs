@@ -46,7 +46,11 @@ for (const route of [
     !doc.querySelector(".reader-text .text-scroll p")
   )
     throw new Error("Анимациялық көрсетілім ашылмады: " + route);
-  if (doc.querySelectorAll(".film-shot").length < 2)
+  if (
+    route.includes("academy")
+      ? !doc.querySelector(".story-video")
+      : doc.querySelectorAll(".film-shot").length < 2
+  )
     throw new Error("Жоспарлар жетіспейді");
   if (route.includes("fugitive") && !doc.querySelector(".fugitive-details"))
     throw new Error("Екінші бөлімнің қозғалыс қабаты жоқ");

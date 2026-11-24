@@ -11,6 +11,7 @@ import { existsSync } from "node:fs";
 import { App } from "../src/App";
 import { chapters } from "../src/data/book";
 import { storyboards, shotAt } from "../src/data/storyboards";
+import { academyVideos } from "../src/data/academyVideos";
 import manifest from "../src/data/audio-manifest.json";
 import { freshProgress, STORAGE_KEY } from "../src/progress";
 import type { AudioSegment } from "../src/types";
@@ -70,16 +71,22 @@ it("барлық көріністе анимация мен толық кіта�
       expect(document.querySelector(".reader-text")?.textContent).toContain(
         chapter.pages,
       );
-      expect(document.querySelectorAll(".film-shot").length).toBe(
-        storyboards[chapter.scenes[i].id].length,
-      );
+      const id = chapter.scenes[i].id;
+      if (academyVideos[id])
+        expect(document.querySelectorAll(".story-video").length).toBe(
+          academyVideos[id].length,
+        );
+      else
+        expect(document.querySelectorAll(".film-shot").length).toBe(
+          storyboards[id].length,
+        );
       view.unmount();
     }
 });
 
 it("аудионы алға және артқа жылжыту тиісті анимациялық кадрды қалпына келтіреді", async () => {
   const user = userEvent.setup();
-  location.hash = "#/read/academy/0";
+  location.hash = "#/read/protect/0";
   render(<App />);
   fireEvent.loadedMetadata(narration());
   await user.click(screen.getByRole("button", { name: "Ойнату", exact: true }));
@@ -115,7 +122,7 @@ it("анимация кадры таймерден емес нақты ауди�
   const cancel = vi.spyOn(window, "cancelAnimationFrame");
   try {
     const user = userEvent.setup();
-    location.hash = "#/read/academy/0";
+    location.hash = "#/read/protect/0";
     render(<App />);
     fireEvent.loadedMetadata(narration());
     await user.click(
@@ -156,9 +163,9 @@ it("ойын ашылғанда аудио мен анимация бірге т
 it("сақталған аудио уақытынан ашылғанда бұрынғы кадр көрсетіледі", () => {
   localStorage.setItem(
     STORAGE_KEY,
-    JSON.stringify({ ...freshProgress(), audioTimes: { "academy-01": 23 } }),
+    JSON.stringify({ ...freshProgress(), audioTimes: { "protect-01": 23 } }),
   );
-  location.hash = "#/read/academy/0";
+  location.hash = "#/read/protect/0";
   render(<App />);
   fireEvent.loadedMetadata(narration());
   expect(narration().currentTime).toBe(23);

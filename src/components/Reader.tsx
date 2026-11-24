@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Chapter, Progress, AudioSegment } from "../types";
+import { VideoStory } from "./VideoStory";
+import { academyVideos } from "../data/academyVideos";
 import { AnimatedStory } from "./AnimatedStory";
 import manifest from "../data/audio-manifest.json";
 import { AudioControls } from "./AudioControls";
@@ -41,6 +43,7 @@ export function Reader({
     [autoPlay, setAutoPlay] = useState(false),
     [ended, setEnded] = useState(false),
     [taskList, setTaskList] = useState(false);
+  const Story = academyVideos[scene.id] ? VideoStory : AnimatedStory;
   const segment = (manifest.segments as Record<string, AudioSegment>)[scene.id];
   const getElapsed = useCallback(
     () =>
@@ -104,7 +107,7 @@ export function Reader({
         </button>
       </div>
       <div className="open-book reader-book">
-        <AnimatedStory
+        <Story
           key={scene.id}
           scene={scene}
           duration={segment ? segment.end - segment.start : 40}
@@ -114,6 +117,7 @@ export function Reader({
               (segment?.start ?? 0),
           )}
           playing={playing}
+          reducedMotion={progress.reducedMotion}
           blocked={!!game || taskList || ended}
           getElapsed={getElapsed}
           onPlay={() => audio.current?.play()}

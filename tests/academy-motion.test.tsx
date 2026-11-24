@@ -24,14 +24,14 @@ it("қол қимылы шағын, қайталанатын және тиіст
 });
 
 it("GPU болмаса бастапқы сурет сақталып, бос кенеп көрсетілмейді", () => {
-  location.hash = "#/read/academy/3";
+  location.hash = "#/read/protect/2";
   const view = render(<App />);
   expect(
     view.container.querySelector(".film-backdrop")?.getAttribute("src"),
-  ).toContain("ceremony.webp");
+  ).toContain("hospital.webp");
   expect(view.container.querySelector("canvas[data-ready]")).toBeNull();
-  expect(view.container.querySelectorAll(".academy-details").length).toBe(
-    storyboards["academy-04"].length,
+  expect(view.container.querySelectorAll(".protect-atmosphere").length).toBe(
+    storyboards["protect-03"].length,
   );
 });
 

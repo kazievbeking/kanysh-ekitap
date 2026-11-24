@@ -23,6 +23,7 @@ export function AnimatedStory({
   getElapsed,
   onPlay,
 }: {
+  reducedMotion?: boolean;
   scene: Scene;
   duration: number;
   elapsed: number;

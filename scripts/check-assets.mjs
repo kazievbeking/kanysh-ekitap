@@ -37,3 +37,9 @@ if (!music.format.hasAudio || music.format.duration < 200)
 console.log(
   `${count} көріністің суреттері, MP3 файлдары және нақты ұзақтықтары тексерілді.`,
 );
+
+for (const id of [1, 2, 3, 4, 5]) {
+  await access(`public/video/academy/clip-${id}.mp4`);
+  await access(`public/video/academy/clip-${id}.jpg`);
+}
+console.log("Академия бөлімінің бес MP4 бейнесі мен постерлері бар.");
