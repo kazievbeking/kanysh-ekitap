@@ -63,3 +63,82 @@
     letter-spacing: 0.6px;
   }
 }
+
+/* Video chapters restore the facing-page reading layout. */
+.reader.video-reader .reader-book {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 1fr);
+  height: clamp(440px, 62vh, 650px);
+  overflow: hidden;
+  align-items: stretch;
+}
+.video-reader .reader-book > .film-stage.video-stage {
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: auto;
+}
+.reader.video-reader .reader-book > .reader-text {
+  margin: 0;
+  padding: 30px 30px 22px;
+  border: 0;
+  border-left: 1px solid #d9d1bd;
+  border-radius: 0;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.video-reader .reader-text-heading,
+.video-reader .reader-text-source {
+  width: 100%;
+  flex-shrink: 0;
+}
+.video-reader .reader-text-heading h2 {
+  font-size: 24px;
+  margin: 13px 0 19px;
+}
+.reader.video-reader .reader-text .text-scroll {
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1;
+  width: 100%;
+  padding-right: 12px;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+.reader.video-reader .reader-text .text-scroll p {
+  font-size: 15px;
+  line-height: 1.95;
+  margin-bottom: 20px;
+}
+.video-reader .reader-text-source {
+  font-size: 10px;
+  padding-top: 12px;
+  margin-top: 12px;
+}
+@media (max-width: 950px) {
+  .reader.video-reader .reader-book {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+  }
+  .video-reader .reader-book > .film-stage.video-stage {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+  .reader.video-reader .reader-book > .reader-text {
+    padding: 28px 24px;
+    border-left: 0;
+    border-top: 1px solid #d9d1bd;
+    overflow: visible;
+  }
+  .reader.video-reader .reader-text .text-scroll {
+    overflow: visible;
+    padding: 0;
+    flex: none;
+  }
+  .reader.video-reader .reader-text .text-scroll p {
+    font-size: 16px;
+  }
+}

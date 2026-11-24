@@ -86,8 +86,40 @@ export function Reader({
     }
   }
 
+  const bookText = (
+    <article
+      className="reader-text paper-page text-page"
+      key={`text-${scene.id}`}
+      aria-labelledby={`text-${scene.id}`}
+    >
+      <header className="reader-text-heading">
+        <span className="small-label">
+          <Icon name="BookOpen" size={17} />
+          КІТАП МӘТІНІ · {chapter.pages}-беттер
+        </span>
+        <h2 id={`text-${scene.id}`}>{scene.title}</h2>
+      </header>
+      <div
+        className="text-scroll"
+        tabIndex={0}
+        role="region"
+        aria-label={`${scene.title}: кітап мәтіні`}
+      >
+        {scene.paragraphs.map((paragraph, i) => (
+          <p key={i}>{paragraph}</p>
+        ))}
+      </div>
+      <footer className="reader-text-source">
+        «Қаныш және ғылыми майдан» · {chapter.title} · {index + 1} /{" "}
+        {chapter.scenes.length}
+      </footer>
+    </article>
+  );
+
   return (
-    <section className="reader cinema-reader">
+    <section
+      className={`reader cinema-reader ${academyVideos[scene.id] ? "video-reader" : ""}`}
+    >
       <div className="reader-toolbar">
         <button className="text-button" onClick={onContents}>
           <Icon name="ArrowLeft" size={17} />
@@ -122,6 +154,7 @@ export function Reader({
           getElapsed={getElapsed}
           onPlay={() => audio.current?.play()}
         />
+        {academyVideos[scene.id] && bookText}
       </div>
       <div className="reader-bottom">
         <AudioControls
@@ -184,28 +217,7 @@ export function Reader({
           </button>
         </div>
       </div>
-      <article
-        className="reader-text paper-page text-page"
-        key={`text-${scene.id}`}
-        aria-labelledby={`text-${scene.id}`}
-      >
-        <header className="reader-text-heading">
-          <span className="small-label">
-            <Icon name="BookOpen" size={17} />
-            КІТАП МӘТІНІ · {chapter.pages}-беттер
-          </span>
-          <h2 id={`text-${scene.id}`}>{scene.title}</h2>
-        </header>
-        <div className="text-scroll">
-          {scene.paragraphs.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
-        </div>
-        <footer className="reader-text-source">
-          «Қаныш және ғылыми майдан» · {chapter.title} · {index + 1} /{" "}
-          {chapter.scenes.length}
-        </footer>
-      </article>
+      {!academyVideos[scene.id] && bookText}
       {game && (
         <Modal
           title="ОЙЛАНУ СӘТІ"

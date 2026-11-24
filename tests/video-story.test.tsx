@@ -1,7 +1,7 @@
 ﻿import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { it, expect, vi } from "vitest";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { App } from "../src/App";
 import { academyVideos, videoFrame } from "../src/data/academyVideos";
 import { freshProgress, STORAGE_KEY } from "../src/progress";
@@ -144,4 +144,30 @@ it("келесі көрініске өткенде алдыңғы бейне т�
   await user.click(screen.getByRole("button", { name: "Келесі", exact: true }));
   expect(previous.every((v) => v.paused)).toBe(true);
   expect(videos()[0].src).toContain("clip-4.mp4");
+});
+
+it("бейне мен мәтін бір кітаптың сол және оң беттерінде орналасады", () => {
+  const css = document.createElement("style");
+  css.textContent = readFileSync("src/components/reader-text.css", "utf8");
+  document.head.append(css);
+  try {
+    for (let i = 0; i < 4; i++) {
+      location.hash = `#/read/academy/${i}`;
+      const view = render(<App />);
+      const book = view.container.querySelector(".reader-book")!;
+      expect(book.children).toHaveLength(2);
+      expect(book.children[0].matches(".video-stage")).toBe(true);
+      expect(book.children[1].matches(".reader-text")).toBe(true);
+      expect(getComputedStyle(book).display).toBe("grid");
+      expect(view.container.querySelectorAll(".reader-text")).toHaveLength(1);
+      expect(
+        view.container
+          .querySelector(".reader-text .text-scroll")
+          ?.getAttribute("tabindex"),
+      ).toBe("0");
+      view.unmount();
+    }
+  } finally {
+    css.remove();
+  }
 });
